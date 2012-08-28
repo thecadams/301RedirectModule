@@ -17,6 +17,8 @@ Improvements by Chris Adams, chris@cadams.com.au
 - Source Item: `/sitecore/content/MySiteRoot/Destination`
 
 ##### Replace some of the query string but don't redirect away #####
+Under the Content tab of `/sitecore/System/Modules/Redirect Module`, Edit the field **Items Which Always Process Redirects** and add an item, eg. `/sitecore/content/MySiteRoot/SomeItem/Path`
+
 - Requested Expression: `^/SomeItem/Path/?\?(.*)name=OldValue(.*)`
 - Source Item: `/sitecore/content/MySiteRoot/SomeItem/Path?$1name=NewValue$2`
 
