@@ -5,8 +5,21 @@ An improved version of the Sitecore 301 redirect module. Original version was cr
 
 Improvements by Chris Adams, chris@cadams.com.au
 
+## Changelog ##
+
+**Version 1.1.1:**
+
+* Support for `encodeNames="true"` (used for Sitecore friendly URLs; most notably, this will make redirects work when dashes in URLs correspond to spaces in item names)
+
+**Version 1.1:**
+
+* Redirects for items which already exist
+* Case-insensitive URL matching
+* Path and query matching
+
 ## New Features ##
 
+* Works with Sitecore friendly URLs!
 * Ability to process redirects for specific items which already exist. Useful if you have an existing item, but need to change part of a query string. Beware of the performance implications as the list of items is examined against every request.
 * **Case-insensitive matching** of URLs
 * Match **the path and query** of a request, ignoring the hostname portion of the user's request. Useful if you need your match to work in multiple environments but don't want to list them in the redirect item.
