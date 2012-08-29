@@ -1,10 +1,12 @@
 ﻿using System.Web;
+using Sitecore;
 using Sitecore.Data;
 using System;
 using Sitecore.Data.Items;
 using System.Text.RegularExpressions;
 using System.Linq;
 using System.Collections.Generic;
+using Sitecore.Links;
 using Sitecore.Pipelines.HttpRequest;
 using Sitecore.Diagnostics;
 
@@ -23,13 +25,13 @@ namespace SharedSource.RedirectModule
 			// This processer is added to the pipeline after the Sitecore Item Resolver.  We want to skip everything if the item resolved successfully.
 			// Also, skip processing for the visitor identification items related to DMS.
 			Assert.ArgumentNotNull(args, "args");
-			if ((Sitecore.Context.Item == null || AllowRedirectsOnFoundItem(Sitecore.Context.Database)) && args.LocalPath != "/layouts/system/visitoridentification" && Sitecore.Context.Database != null)
+			if ((Context.Item == null || AllowRedirectsOnFoundItem(Context.Database)) && args.LocalPath != "/layouts/system/visitoridentification" && Context.Database != null)
 			{
 				// Grab the actual requested path for use in both the item and pattern match sections.
 				var requestedUrl = HttpContext.Current.Request.Url.ToString();
 				var requestedPath = HttpContext.Current.Request.Url.AbsolutePath;
 			    var requestedPathAndQuery = HttpContext.Current.Request.Url.PathAndQuery;
-				var db = Sitecore.Context.Database;
+				var db = Context.Database;
 
 				// First, we check for exact matches because those take priority over pattern matches.
 				if (Sitecore.Configuration.Settings.GetBoolSetting("SharedSource.RedirectModule.RedirectionType.ExactMatch", true))
@@ -70,7 +72,13 @@ namespace SharedSource.RedirectModule
 							// Query portion gets in the way of getting the sitecore item.
 						    var pathAndQuery = redirectPath.Split('?');
 						    var path = pathAndQuery[0];
-							var redirectToItem = db.GetItem(path);
+                            if (LinkManager.Provider != null &&
+                                LinkManager.Provider.GetDefaultUrlOptions() != null &&
+                                LinkManager.Provider.GetDefaultUrlOptions().EncodeNames)
+                            {
+                                path = MainUtil.DecodeName(path);
+                            }
+						    var redirectToItem = db.GetItem(path);
 							if (redirectToItem != null)
 							{
                                 var query = pathAndQuery.Length > 1 ? "?" + pathAndQuery[1] : "";
@@ -92,7 +100,7 @@ namespace SharedSource.RedirectModule
 					return false;
 			  var allowRedirectsOnItemIDs = redirectFolderRoot["Items Which Always Process Redirects"];
 			  return allowRedirectsOnItemIDs != null &&
-						allowRedirectsOnItemIDs.Contains(Sitecore.Context.Item.ID.ToString());
+						allowRedirectsOnItemIDs.Contains(Context.Item.ID.ToString());
 		 }
 
 		/// <summary>
@@ -133,7 +141,7 @@ namespace SharedSource.RedirectModule
 		/// </summary>
 		private static void SendResponse(Item redirectToItem, string queryString, HttpRequestArgs args)
 		{
-			var redirectToUrl = Sitecore.Links.LinkManager.GetItemUrl(redirectToItem);
+			var redirectToUrl = LinkManager.GetItemUrl(redirectToItem);
 			args.Context.Response.Status = "301 Moved Permanently";
 			args.Context.Response.StatusCode = 301;
 			args.Context.Response.AddHeader("Location", redirectToUrl + queryString);
