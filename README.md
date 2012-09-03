@@ -20,9 +20,14 @@ Improvements by Chris Adams of Igloo Digital, [http://www.igloo.com.au/](http://
 ## New Features ##
 
 * Works with Sitecore friendly URLs!
-* Ability to process redirects for specific items which already exist. Useful if you have an existing item, but need to change part of a query string. Beware of the performance implications as the list of items is examined against every request.
 * **Case-insensitive matching** of URLs
+* Ability to process redirects for specific items which already exist. Useful if you have an existing item, but need to change part of a query string. Beware of the performance implications as the list of items is examined against every request.
+
+![Redirecting when items already exist](http://blog.igloo.com.au/wp-content/uploads/2012/08/AlwaysRedirect.png)
+
 * Match **the path and query** of a request, ignoring the hostname portion of the user's request. Useful if you need your match to work in multiple environments but don't want to list them in the redirect item.
+
+![Redirecting and modifying the query string](http://blog.igloo.com.au/wp-content/uploads/2012/08/SiteAreaRedirect.png)
 
 ## Examples ##
 ##### Match only the path, dropping the query string #####
