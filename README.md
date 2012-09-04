@@ -29,6 +29,24 @@ Improvements by Chris Adams of Igloo Digital, [http://www.igloo.com.au/](http://
 
 ![Redirecting and modifying the query string](http://blog.igloo.com.au/wp-content/uploads/2012/08/SiteAreaRedirect.png)
 
+The regular expression above in the "Requested Expression" field will match any request where the path portion of the URL begins with /old-site-area. For instance, a request to http://mysite.com/old-site-area/homepage will be processed by this redirect. As a side-effect, the path portion under /old-site-area ("/homepage") will be saved for later in a capture group called Path. This is the "^/old-site-area(?<Path>/.*?)?" portion of the regular expression.
+
+Because Sitecore accepts URLs ending with .aspx, this regular expression will also process a request to http://mysite.com/old-site-area/homepage.aspx. This is not compulsory but recommended, otherwise you have 2 URLs pointing to one page. This can cause search engines to penalise your content for being duplicated twice on your site. Removing the .aspx extension will help make your content look like it only lives in one place. This is the "(.aspx)?" portion of the regular expression.
+
+Lastly this regular expression accepts (but does not require) a query string, so this regular expression will also match a request to http://mysite.com/old-site-area/homepage.aspx?thesky=blue. This is the "(?<OptionalQueryString>\?.*)?$" portion of the regular expression.
+
+This looks complicated but it's not magic; it's just regular expressions. This is using .NET framework regular expression syntax. You can learn about regular expressions on Wikipedia and test a regular expression with Derek Slager's .NET Regular Expression tester.
+
+OK, example time. A user just sent a request to http://mysite.com/old-site-area/homepage.aspx?thesky=blue. What happens?
+
+1. The "Requested Expression" is tested and found to be a match, as per above.
+2. The value of the "Source Item" field is substituted as needed. In this case, ${Path} will become "/homepage" and ${OptionalQueryString} will become "?thesky=blue", so the final value of "Source Item" for this request becomes "/sitecore/content/Site/New Site Area/homepage?thesky=blue". ${Path} and ${OptionalQueryString} are names you can see in the "Requested Expression" field.
+4. Everything before the question mark is used to look up the path of an item in the Sitecore tree.
+5. If an item is found, its friendly URL is retrieved. In this case, the URL will be http://mysite.com/new-site-area/homepage
+6. The query string is put on the end. In this case, the URL will become http://mysite.com/new-site-area/homepage?thesky=blue
+7. A 301 redirect is issued, which tells browsers and search engines that the URL the user requested (http://mysite.com/old-site-area/homepage.aspx?thesky=blue) can now be found at http://mysite.com/new-site-area/homepage?thesky=blue.
+8. The user's browser follows the redirect and requests http://mysite.com/new-site-area/homepage?thesky=blue.
+
 ## Examples ##
 ##### Match only the path, dropping the query string #####
 - Requested Expression: `^/MovedItem/?`
