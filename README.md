@@ -7,6 +7,10 @@ Improvements by Chris Adams of Igloo Digital, [http://www.igloo.com.au/](http://
 
 ## Changelog ##
 
+**Version 1.1.2:**
+
+* Fixed an exception when using exact URL matching on pattern items.
+
 **Version 1.1.1:**
 
 * Support for `encodeNames="true"` (used for Sitecore friendly URLs; most notably, this will make redirects work when dashes in URLs correspond to spaces in item names)

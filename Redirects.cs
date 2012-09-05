@@ -30,7 +30,7 @@ namespace SharedSource.RedirectModule
 				// Grab the actual requested path for use in both the item and pattern match sections.
 				var requestedUrl = HttpContext.Current.Request.Url.ToString();
 				var requestedPath = HttpContext.Current.Request.Url.AbsolutePath;
-			    var requestedPathAndQuery = HttpContext.Current.Request.Url.PathAndQuery;
+				var requestedPathAndQuery = HttpContext.Current.Request.Url.PathAndQuery;
 				var db = Context.Database;
 
 				// First, we check for exact matches because those take priority over pattern matches.
@@ -57,33 +57,34 @@ namespace SharedSource.RedirectModule
 					// Loop through the pattern match items to find a match
 					foreach (Item possibleRedirectPattern in GetRedirects(db, "Redirect Pattern", Sitecore.Configuration.Settings.GetSetting("SharedSource.RedirectModule.QueryType.ExactMatch")))
 					{
+						var redirectPath = string.Empty;
 						if (Regex.IsMatch(requestedUrl, possibleRedirectPattern["requested expression"], RegexOptions.IgnoreCase))
 						{
-							var redirectUri = new Uri(Regex.Replace(requestedUrl, possibleRedirectPattern["requested expression"], possibleRedirectPattern["source item"], RegexOptions.IgnoreCase));
-							var redirectToItem = db.GetItem(redirectUri.AbsolutePath);
-							if (redirectToItem != null)
-							{
-								SendResponse(redirectToItem, redirectUri.Query, args);
-							}
+							redirectPath = Regex.Replace(requestedUrl, possibleRedirectPattern["requested expression"],
+														 possibleRedirectPattern["source item"], RegexOptions.IgnoreCase);
 						}
 						else if (Regex.IsMatch(requestedPathAndQuery, possibleRedirectPattern["requested expression"], RegexOptions.IgnoreCase))
 						{
-                            var redirectPath = Regex.Replace(requestedPathAndQuery, possibleRedirectPattern["requested expression"], possibleRedirectPattern["source item"], RegexOptions.IgnoreCase);
-							// Query portion gets in the way of getting the sitecore item.
-						    var pathAndQuery = redirectPath.Split('?');
-						    var path = pathAndQuery[0];
-                            if (LinkManager.Provider != null &&
-                                LinkManager.Provider.GetDefaultUrlOptions() != null &&
-                                LinkManager.Provider.GetDefaultUrlOptions().EncodeNames)
-                            {
-                                path = MainUtil.DecodeName(path);
-                            }
-						    var redirectToItem = db.GetItem(path);
-							if (redirectToItem != null)
-							{
-                                var query = pathAndQuery.Length > 1 ? "?" + pathAndQuery[1] : "";
-                                SendResponse(redirectToItem, query, args);
-							}
+							redirectPath = Regex.Replace(requestedPathAndQuery,
+														 possibleRedirectPattern["requested expression"],
+														 possibleRedirectPattern["source item"], RegexOptions.IgnoreCase);
+						}
+						if (string.IsNullOrEmpty(redirectPath)) continue;
+
+						// Query portion gets in the way of getting the sitecore item.
+						var pathAndQuery = redirectPath.Split('?');
+						var path = pathAndQuery[0];
+						if (LinkManager.Provider != null &&
+							LinkManager.Provider.GetDefaultUrlOptions() != null &&
+							LinkManager.Provider.GetDefaultUrlOptions().EncodeNames)
+						{
+							path = MainUtil.DecodeName(path);
+						}
+						var redirectToItem = db.GetItem(path);
+						if (redirectToItem != null)
+						{
+							var query = pathAndQuery.Length > 1 ? "?" + pathAndQuery[1] : "";
+							SendResponse(redirectToItem, query, args);
 						}
 					}
 				}
