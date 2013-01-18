@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using Sitecore.Links;
 using Sitecore.Pipelines.HttpRequest;
 using Sitecore.Diagnostics;
+using Sitecore.Resources.Media;
 
 namespace SharedSource.RedirectModule
 {
@@ -142,12 +143,25 @@ namespace SharedSource.RedirectModule
 		/// </summary>
 		private static void SendResponse(Item redirectToItem, string queryString, HttpRequestArgs args)
 		{
-			var redirectToUrl = LinkManager.GetItemUrl(redirectToItem);
+			var redirectToUrl = GetRedirectToUrl(redirectToItem);
 			args.Context.Response.Status = "301 Moved Permanently";
 			args.Context.Response.StatusCode = 301;
 			args.Context.Response.AddHeader("Location", redirectToUrl + queryString);
 			args.Context.Response.End();
 		}
+
+        private static string GetRedirectToUrl(Item redirectToItem)
+        {
+            if (redirectToItem.Paths.Path.StartsWith("/sitecore/media library/"))
+            {
+                var mediaItem = (MediaItem)redirectToItem;
+                var mediaUrl = MediaManager.GetMediaUrl(mediaItem);
+                var redirectToUrl = StringUtil.EnsurePrefix('/', mediaUrl);
+                return redirectToUrl;
+            }
+
+            return LinkManager.GetItemUrl(redirectToItem);
+        }
 	}
 }
 
