@@ -118,7 +118,6 @@ Under the Content tab of `/sitecore/System/Modules/Redirect Module`, Edit the fi
       <Entries>
         <x-item>/master/sitecore/system/Modules/Redirect Module/{5DE378FE-0CAB-4043-AF9D-97327BBFEC9F}/invariant/0</x-item>
         <x-item>/master/sitecore/templates/Redirect Module/{838D5593-F067-4F36-8C74-0A09A7EE97E3}/invariant/0</x-item>
-        <x-item>/master/sitecore/templates/Redirect Module/Redirect Folder/__Standard-Values/{4D152C1C-EFE4-466A-9C63-0779C7E85FA2}/invariant/0</x-item>
         <x-item>/master/sitecore/templates/Redirect Module/Redirect Folder/{8BEF76F0-DEAA-4939-B9C1-F357E1875D5D}/invariant/0</x-item>
         <x-item>/master/sitecore/templates/Redirect Module/Redirect Folder/Redirects/{8065258E-FC17-45C9-B441-73AF409307E2}/invariant/0</x-item>
         <x-item>/master/sitecore/templates/Redirect Module/Redirect Folder/Redirects/Items Which Always Process Redirects/{222B17BB-6D16-47D4-968F-B6BDA3D76B02}/invariant/0</x-item>
@@ -127,11 +126,12 @@ Under the Content tab of `/sitecore/System/Modules/Redirect Module`, Edit the fi
         <x-item>/master/sitecore/templates/Redirect Module/Redirect Pattern/Information/{5D138B67-7A3C-48EF-9788-648486B8DA40}/invariant/0</x-item>
         <x-item>/master/sitecore/templates/Redirect Module/Redirect Pattern/Information/Requested Expression/{C7A2362D-35F5-4735-9366-59838AA20E2F}/invariant/0</x-item>
         <x-item>/master/sitecore/templates/Redirect Module/Redirect Pattern/Information/Source Item/{FB68F214-543C-48FB-856E-B96C4C8796C8}/invariant/0</x-item>
-        <x-item>/master/sitecore/templates/Redirect Module/Redirect Url/__Standard-Values/{A08E6C2D-42C3-4404-B0D7-C7C881DF8FBF}/invariant/0</x-item>
         <x-item>/master/sitecore/templates/Redirect Module/Redirect Url/{B5967A68-7F70-42D3-9874-0E4D001DBC20}/invariant/0</x-item>
         <x-item>/master/sitecore/templates/Redirect Module/Redirect Url/Information/{02A31C7B-D7CD-4571-B4B0-54E12D785B53}/invariant/0</x-item>
         <x-item>/master/sitecore/templates/Redirect Module/Redirect Url/Information/Redirect To/{544E5C57-1626-4972-8535-196F000E4B1F}/invariant/0</x-item>
         <x-item>/master/sitecore/templates/Redirect Module/Redirect Url/Information/Requested Url/{5CF9CCB5-5F2E-4F06-946D-3A952B089A68}/invariant/0</x-item>
+        <x-item>/master/sitecore/templates/Redirect Module/Redirect Folder/__Standard Values/{4D152C1C-EFE4-466A-9C63-0779C7E85FA2}/invariant/0</x-item>
+        <x-item>/master/sitecore/templates/Redirect Module/Redirect Url/__Standard Values/{A08E6C2D-42C3-4404-B0D7-C7C881DF8FBF}/invariant/0</x-item>
       </Entries>
       <SkipVersions>False</SkipVersions>
       <Converter>
