@@ -3,7 +3,7 @@
 
 An improved version of the Sitecore 301 redirect module. Original version was created by Chris Castle, available at [http://trac.sitecore.net/301RedirectModule](http://trac.sitecore.net/301RedirectModule)
 
-Improvements by Chris Adams of Igloo Digital, [http://www.igloo.com.au/](http://www.igloo.com.au/)
+Improvements by Chris Adams, [http://www.cadams.com.au/](http://www.cadams.com.au/)
 
 ## Changelog ##
 
@@ -73,3 +73,36 @@ Under the Content tab of `/sitecore/System/Modules/Redirect Module`, Edit the fi
 ##### Move an area of your site #####
 - Requested Expression: `^/MovedSiteArea(?<Path>/.*?)?(.aspx)?(?<OptionalQueryString>\?.*)?$`
 - Source Item: `/sitecore/content/MySiteRoot/NewLocationOfSiteArea${Path}${OptionalQueryString}`
+
+## Other goodies ##
+##### How to redirect other extensions #####
+With thanks to RyanEaves, [https://github.com/RyanEaves](https://github.com/RyanEaves) - originally from [https://github.com/thecadams/301RedirectModule/issues/3](https://github.com/thecadams/301RedirectModule/issues/3)
+
+I needed to use this to migrate from a PHP based site, and it took some work to figure out how. So I thought I would share the knowledge. These instructions are for IIS6, although I'm sure you can derive how to do it in IIS7 easily.
+
+1. Add the extension mapping in IIS for your site.
+
+    Go to properties for your site, Home Directory, Configuration button, Mappings tab, Add...
+
+    - Executable: `C:\WINDOWS\Microsoft.NET\Framework\v4.0.30319\aspnet_isapi.dll`
+
+        Note: The above path will be different for you if you use x64 or a different version of .net. Just use the same path that is mapped to the .aspx extension and it will work.
+
+    - Extension: `.php`
+    - All Verbs
+    - Script engine: checked
+    - Verify that file exists: UNCHECKED (very important)
+
+    Click OK
+
+2. Tell Sitecore to process php files:
+
+    - Open Web.config
+    - Do a search for: `Sitecore.Pipelines.PreProcessRequest.FilterUrlExtensions`
+    - Underneath that line, there is a parameter for "Allowed extensions". Add php to the list.
+
+DONE! Now you can add rules to this module that redirect .php files.
+
+You can do this exact same process for other extension types like .html, .jpg/.gif/.png, .pdf, etc as well if you need to redirect those.
+
+Hope that saves someone a few hours of research!
