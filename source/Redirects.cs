@@ -26,7 +26,7 @@ namespace SharedSource.RedirectModule
 			// This processer is added to the pipeline after the Sitecore Item Resolver.  We want to skip everything if the item resolved successfully.
 			// Also, skip processing for the visitor identification items related to DMS.
 			Assert.ArgumentNotNull(args, "args");
-			if ((Context.Item == null || AllowRedirectsOnFoundItem(Context.Database)) && args.LocalPath != "/layouts/system/visitoridentification" && Context.Database != null)
+			if ((Context.Item == null || AllowRedirectsOnFoundItem(Context.Database)) && args.LocalPath != Constants.Paths.VisitorIdentification && Context.Database != null)
 			{
 				// Grab the actual requested path for use in both the item and pattern match sections.
 				var requestedUrl = HttpContext.Current.Request.Url.ToString();
@@ -35,15 +35,15 @@ namespace SharedSource.RedirectModule
 				var db = Context.Database;
 
 				// First, we check for exact matches because those take priority over pattern matches.
-				if (Sitecore.Configuration.Settings.GetBoolSetting("SharedSource.RedirectModule.RedirectionType.ExactMatch", true))
+				if (Sitecore.Configuration.Settings.GetBoolSetting(Constants.Types.RedirExactMatch, true))
 				{
 					// Loop through the exact match entries to look for a match.
-					foreach (Item possibleRedirect in GetRedirects(db, "Redirect Url", Sitecore.Configuration.Settings.GetSetting("SharedSource.RedirectModule.QueryType.ExactMatch")))
+					foreach (Item possibleRedirect in GetRedirects(db, Constants.Templates.RedirectUrl, Constants.Templates.VersionedRedirectUrl, Sitecore.Configuration.Settings.GetSetting(Constants.Types.QueryExactMatch)))
 					{						
-						if (requestedUrl.Equals(possibleRedirect["Requested Url"], StringComparison.OrdinalIgnoreCase) ||
-							 requestedPath.Equals(possibleRedirect["Requested Url"], StringComparison.OrdinalIgnoreCase))
+						if (requestedUrl.Equals(possibleRedirect[Constants.Fields.RequestedUrl], StringComparison.OrdinalIgnoreCase) ||
+                             requestedPath.Equals(possibleRedirect[Constants.Fields.RequestedUrl], StringComparison.OrdinalIgnoreCase))
 						{
-							var redirectToItem = db.GetItem(ID.Parse(possibleRedirect.Fields["redirect to"]));
+							var redirectToItem = db.GetItem(ID.Parse(possibleRedirect.Fields[Constants.Fields.RedirectTo]));
 							if (redirectToItem != null)
 							{
 								SendResponse(redirectToItem, HttpContext.Current.Request.Url.Query, args);
@@ -53,22 +53,22 @@ namespace SharedSource.RedirectModule
 				}
 
 				// Second, we check for pattern matches because we didn't hit on an exact match.
-				if (Sitecore.Configuration.Settings.GetBoolSetting("SharedSource.RedirectModule.RedirectionType.Pattern", true))
+				if (Sitecore.Configuration.Settings.GetBoolSetting(Constants.Types.RedirPatternMatch, true))
 				{
 					// Loop through the pattern match items to find a match
-					foreach (Item possibleRedirectPattern in GetRedirects(db, "Redirect Pattern", Sitecore.Configuration.Settings.GetSetting("SharedSource.RedirectModule.QueryType.ExactMatch")))
+					foreach (Item possibleRedirectPattern in GetRedirects(db, Constants.Templates.RedirectPattern, Constants.Templates.VersionedRedirectPattern, Sitecore.Configuration.Settings.GetSetting("SharedSource.RedirectModule.QueryType.ExactMatch")))
 					{
 						var redirectPath = string.Empty;
-						if (Regex.IsMatch(requestedUrl, possibleRedirectPattern["requested expression"], RegexOptions.IgnoreCase))
+						if (Regex.IsMatch(requestedUrl, possibleRedirectPattern[Constants.Fields.RequestedExpression], RegexOptions.IgnoreCase))
 						{
-							redirectPath = Regex.Replace(requestedUrl, possibleRedirectPattern["requested expression"],
-														 possibleRedirectPattern["source item"], RegexOptions.IgnoreCase);
+                            redirectPath = Regex.Replace(requestedUrl, possibleRedirectPattern[Constants.Fields.RequestedExpression],
+														 possibleRedirectPattern[Constants.Fields.SourceItem], RegexOptions.IgnoreCase);
 						}
-						else if (Regex.IsMatch(requestedPathAndQuery, possibleRedirectPattern["requested expression"], RegexOptions.IgnoreCase))
+                        else if (Regex.IsMatch(requestedPathAndQuery, possibleRedirectPattern[Constants.Fields.RequestedExpression], RegexOptions.IgnoreCase))
 						{
 							redirectPath = Regex.Replace(requestedPathAndQuery,
-														 possibleRedirectPattern["requested expression"],
-														 possibleRedirectPattern["source item"], RegexOptions.IgnoreCase);
+                                                         possibleRedirectPattern[Constants.Fields.RequestedExpression],
+                                                         possibleRedirectPattern[Constants.Fields.SourceItem], RegexOptions.IgnoreCase);
 						}
 						if (string.IsNullOrEmpty(redirectPath)) continue;
 
@@ -100,36 +100,58 @@ namespace SharedSource.RedirectModule
 			  var redirectFolderRoot = db.SelectSingleItem(redirectRoot);
 			  if (redirectFolderRoot == null)
 					return false;
-			  var allowRedirectsOnItemIDs = redirectFolderRoot["Items Which Always Process Redirects"];
+			  var allowRedirectsOnItemIDs = redirectFolderRoot[Constants.Fields.ItemProcessRedirects];
 			  return allowRedirectsOnItemIDs != null &&
 						allowRedirectsOnItemIDs.Contains(Context.Item.ID.ToString());
 		 }
 
 		/// <summary>
-		///  This method return all of the possible matches for either the exact matches or the pattern matches
+		///  This method return all of the possible matches for either the exact matches or the pattern matches.
+		///  Note: Because Fast Query does not guarantee to return items in the current language context
+        ///  (e.g. while in US/English, results may include other language items as well, even if the 
+        ///  US/EN langauge has no active versions.
 		/// </summary>
-		private static IEnumerable<Item> GetRedirects(Database db, string templateName, string queryType)
+		private static IEnumerable<Item> GetRedirects(Database db, string templateName, string versionedTemplateName, string queryType)
 		{			
 			// Based off the config file, we can run different types of queries. 
 			IEnumerable<Item> ret = null;
-			var redirectRoot = Sitecore.Configuration.Settings.GetSetting("SharedSource.RedirectModule.RedirectRootNode");
+			var redirectRoot = Sitecore.Configuration.Settings.GetSetting(Constants.Types.RedirectRootNode);
 			switch (queryType)
 			{
 				case "fast": // fast query
 				{
-					ret = db.SelectItems(String.Format("fast:{0}//*[@@templatename='{1}']", redirectRoot, templateName));
-					break;
+					//process shared template items
+                    ret = db.SelectItems(String.Format("fast:{0}//*[@@templatename='{1}']", redirectRoot, templateName));
+
+                    //because fast query requires to check for active versions in the current language
+                    //run a separate query for versioned items to see if this is even necessary.
+                    //if only shared templates exist in System/Modules, this step is extraneous and unnecessary.
+                    IEnumerable<Item> versionedItems = db.SelectItems(String.Format("fast:{0}//*[@@templatename='{1}']", redirectRoot, versionedTemplateName));
+				    if (versionedItems != null)
+				    {
+				        versionedItems =
+				            versionedItems.Where(i =>
+				            {
+				                var firstOrDefault = i.Languages.FirstOrDefault();
+				                return firstOrDefault != null && (i.Versions.Count > 0 &&  firstOrDefault.Name == Context.Language.Name);
+				            });
+
+				        if (versionedItems.FirstOrDefault() != null)
+				            ret = ret.Union(versionedItems);
+				    }
+                    
+                    break;
 				}
 				case "query": // Sitecore query
 				{
-					ret = db.SelectItems(String.Format("{0}//*[@@templatename='{1}']", redirectRoot, templateName));
+					ret = db.SelectItems(String.Format("{0}//*[@@templatename='{1}' or @@templatename='{2}]", redirectRoot, templateName,versionedTemplateName));
 					break;
 				}				
 				default: // API LINQ
 				{
 					Item redirectFolderRoot = db.SelectSingleItem(redirectRoot);
 					if (redirectFolderRoot != null)
-						ret = redirectFolderRoot.Axes.GetDescendants().Where(i => i.TemplateName == templateName);
+						ret = redirectFolderRoot.Axes.GetDescendants().Where(i => (i.TemplateName == templateName) || (i.TemplateName == versionedTemplateName));
 					break;
 				}
 			}	
