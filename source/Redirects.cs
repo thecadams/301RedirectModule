@@ -38,7 +38,7 @@ namespace SharedSource.RedirectModule
                 if (Sitecore.Configuration.Settings.GetBoolSetting(Constants.Types.RedirExactMatch, true))
                 {
                     // Loop through the exact match entries to look for a match.
-                    foreach (Item possibleRedirect in GetRedirects(db, Constants.Templates.RedirectUrl, Constants.Templates.VersionedRedirectPattern, Sitecore.Configuration.Settings.GetSetting(Constants.Types.QueryExactMatch)))
+                    foreach (Item possibleRedirect in GetRedirects(db, Constants.Templates.RedirectUrl, Constants.Templates.VersionedRedirectUrl, Sitecore.Configuration.Settings.GetSetting(Constants.Types.QueryExactMatch)))
                     {
                         if (requestedUrl.Equals(possibleRedirect[Constants.Fields.RequestedUrl], StringComparison.OrdinalIgnoreCase) ||
                              requestedPath.Equals(possibleRedirect[Constants.Fields.RequestedUrl], StringComparison.OrdinalIgnoreCase))
@@ -131,12 +131,8 @@ namespace SharedSource.RedirectModule
                         if (versionedItems != null)
                         {
                             versionedItems =
-                                versionedItems.Where(i =>
-                                {
-                                    var firstOrDefault = i.Languages.FirstOrDefault();
-                                    return firstOrDefault != null && (i.Versions.Count > 0 && firstOrDefault.Name == Context.Language.Name);
-                                });
-
+                                versionedItems.Where(i => i.Versions.Count > 0);
+                                
 
                             if (versionedItems.FirstOrDefault() != null)
                                 ret = ret.Union(versionedItems);
