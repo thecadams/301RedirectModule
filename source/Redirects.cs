@@ -128,16 +128,13 @@ namespace SharedSource.RedirectModule
                         //run a separate query for versioned items to see if this is even necessary.
                         //if only shared templates exist in System/Modules, this step is extraneous and unnecessary.
                         IEnumerable<Item> versionedItems = db.SelectItems(String.Format("fast:{0}//*[@@templatename='{1}']", redirectRoot, versionedTemplateName));
-                        if (versionedItems != null)
-                        {
-                            versionedItems =
-                                versionedItems.Where(i => i.Versions.Count > 0);
-                                
 
-                            if (versionedItems.FirstOrDefault() != null)
-                                ret = ret.Union(versionedItems);
-                        }
+                        //if active versions of items in the current context exist, union the two IEnumerable lists together.
+                        ret = versionedItems.Any(i => i.Versions.Count > 0)
+                            ? ret.Union(versionedItems.Where(i => i.Versions.Count > 0))
+                            : ret;
 
+                        
                         break;
                     }
                 case "query": // Sitecore query
