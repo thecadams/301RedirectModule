@@ -35,10 +35,10 @@ namespace SharedSource.RedirectModule
                 var db = Context.Database;
 
                 // First, we check for exact matches because those take priority over pattern matches.
-                if (Sitecore.Configuration.Settings.GetBoolSetting(Constants.Types.RedirExactMatch, true))
+                if (Sitecore.Configuration.Settings.GetBoolSetting(Constants.Settings.RedirExactMatch, true))
                 {
                     // Loop through the exact match entries to look for a match.
-                    foreach (Item possibleRedirect in GetRedirects(db, Constants.Templates.RedirectUrl, Constants.Templates.VersionedRedirectUrl, Sitecore.Configuration.Settings.GetSetting(Constants.Types.QueryExactMatch)))
+                    foreach (Item possibleRedirect in GetRedirects(db, Constants.Templates.RedirectUrl, Constants.Templates.VersionedRedirectUrl, Sitecore.Configuration.Settings.GetSetting(Constants.Settings.QueryExactMatch)))
                     {
                         if (requestedUrl.Equals(possibleRedirect[Constants.Fields.RequestedUrl], StringComparison.OrdinalIgnoreCase) ||
                              requestedPath.Equals(possibleRedirect[Constants.Fields.RequestedUrl], StringComparison.OrdinalIgnoreCase))
@@ -53,10 +53,10 @@ namespace SharedSource.RedirectModule
                 }
 
                 // Second, we check for pattern matches because we didn't hit on an exact match.
-                if (Sitecore.Configuration.Settings.GetBoolSetting(Constants.Types.RedirPatternMatch, true))
+                if (Sitecore.Configuration.Settings.GetBoolSetting(Constants.Settings.RedirPatternMatch, true))
                 {
                     // Loop through the pattern match items to find a match
-                    foreach (Item possibleRedirectPattern in GetRedirects(db, Constants.Templates.RedirectPattern, Constants.Templates.VersionedRedirectPattern, Sitecore.Configuration.Settings.GetSetting(Constants.Types.QueryExactMatch)))
+                    foreach (Item possibleRedirectPattern in GetRedirects(db, Constants.Templates.RedirectPattern, Constants.Templates.VersionedRedirectPattern, Sitecore.Configuration.Settings.GetSetting(Constants.Settings.QueryExactMatch)))
                     {
                         var redirectPath = string.Empty;
                         if (Regex.IsMatch(requestedUrl, possibleRedirectPattern[Constants.Fields.RequestedExpression], RegexOptions.IgnoreCase))
@@ -96,7 +96,7 @@ namespace SharedSource.RedirectModule
         {
             if (db == null)
                 return false;
-            var redirectRoot = Sitecore.Configuration.Settings.GetSetting(Constants.Types.RedirectRootNode);
+            var redirectRoot = Sitecore.Configuration.Settings.GetSetting(Constants.Settings.RedirectRootNode);
             var redirectFolderRoot = db.SelectSingleItem(redirectRoot);
             if (redirectFolderRoot == null)
                 return false;
@@ -116,7 +116,7 @@ namespace SharedSource.RedirectModule
         {
             // Based off the config file, we can run different types of queries. 
             IEnumerable<Item> ret = null;
-            var redirectRoot = Sitecore.Configuration.Settings.GetSetting(Constants.Types.RedirectRootNode);
+            var redirectRoot = Sitecore.Configuration.Settings.GetSetting(Constants.Settings.RedirectRootNode);
             switch (queryType)
             {
                 case "fast": // fast query

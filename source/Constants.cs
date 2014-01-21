@@ -10,7 +10,7 @@ namespace SharedSource.RedirectModule
             public static string MediaLibrary = "/sitecore/media library/";
         }
 
-        public static class Types
+        public static class Settings
         {
             public static string RedirExactMatch = "SharedSource.RedirectModule.RedirectionType.ExactMatch";
             public static string RedirPatternMatch = "SharedSource.RedirectModule.RedirectionType.Pattern";
@@ -33,11 +33,6 @@ namespace SharedSource.RedirectModule
             public static string RequestedExpression = "requested expression";
             public static string SourceItem = "source item";
             public static string ItemProcessRedirects = "Items Which Always Process Redirects";
-        }
-
-        public static class Settings
-        {
-            
         }
 
     }
