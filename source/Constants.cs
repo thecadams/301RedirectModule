@@ -7,10 +7,11 @@ namespace SharedSource.RedirectModule
         public static class Paths
         {
             public static string VisitorIdentification = "/layouts/system/visitoridentification";
+            public static string MediaLibrary = "/sitecore/media library/";
         }
 
         public static class Types
-        { 
+        {
             public static string RedirExactMatch = "SharedSource.RedirectModule.RedirectionType.ExactMatch";
             public static string RedirPatternMatch = "SharedSource.RedirectModule.RedirectionType.Pattern";
             public static string QueryExactMatch = "SharedSource.RedirectModule.QueryType.ExactMatch";
@@ -30,7 +31,7 @@ namespace SharedSource.RedirectModule
             public static string RequestedUrl = "Requested Url";
             public static string RedirectTo = "redirect to";
             public static string RequestedExpression = "requested expression";
-            public static string SourceItem = "souce item";
+            public static string SourceItem = "source item";
             public static string ItemProcessRedirects = "Items Which Always Process Redirects";
         }
 
