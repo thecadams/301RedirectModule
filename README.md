@@ -3,9 +3,13 @@
 
 An improved version of the Sitecore 301 redirect module. Original version was created by Chris Castle, available at [http://trac.sitecore.net/301RedirectModule](http://trac.sitecore.net/301RedirectModule)
 
-Improvements by Chris Adams, [http://www.cadams.com.au/](http://www.cadams.com.au/)
+Improvements by Chris Adams, [http://www.cadams.com.au/](http://www.cadams.com.au/) and [Max Slabyak](https://github.com/maxslabyak)
 
 ## Changelog ##
+
+**Version 1.2:**
+
+* Added support for i18n and versioned redirects ([https://github.com/thecadams/301RedirectModule/pull/5/commits](https://github.com/thecadams/301RedirectModule/pull/5/commits)) - contributed by [Max Slabyak](https://github.com/maxslabyak)
 
 **Version 1.1.2:**
 
