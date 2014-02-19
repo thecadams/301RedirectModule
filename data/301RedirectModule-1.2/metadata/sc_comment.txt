@@ -1,0 +1,1 @@
+A modification of a package contributed to Sitecore Shared Source by Chris Castle. Original is available at http://trac.sitecore.net/301RedirectModule
