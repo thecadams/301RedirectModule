@@ -44,21 +44,20 @@ namespace SharedSource.RedirectModule
                              requestedPath.Equals(possibleRedirect[Constants.Fields.RequestedUrl], StringComparison.OrdinalIgnoreCase))
                         {
 
-                            if(possibleRedirect.Fields[Constants.Fields.RedirectToItem].HasValue)
+                            var redirectToItemId = possibleRedirect.Fields[Constants.Fields.RedirectToItem];
+                            var redirectToUrl = possibleRedirect.Fields[Constants.Fields.RedirectToUrl];
+
+                            if (redirectToItemId.HasValue && !string.IsNullOrEmpty(redirectToItemId.ToString()))
                             {
-                                var redirectToItem = db.GetItem(ID.Parse(possibleRedirect.Fields[Constants.Fields.RedirectToItem]));
+                                var redirectToItem = db.GetItem(ID.Parse(redirectToItemId));
                                 if (redirectToItem != null)
                                 {
                                     SendResponse(redirectToItem, HttpContext.Current.Request.Url.Query, args);
                                 }
                             }
-                            else if (possibleRedirect.Fields[Constants.Fields.RedirectToUrl].HasValue)
+                            else if (redirectToUrl.HasValue && !string.IsNullOrEmpty(redirectToUrl.ToString()))
                             {
-                                var redirectToRaw = possibleRedirect.Fields[Constants.Fields.RedirectToUrl].Value;
-                                if(!string.IsNullOrEmpty(redirectToRaw))
-                                {
-                                    SendResponse(redirectToRaw, HttpContext.Current.Request.Url.Query, args);
-                                }
+                                SendResponse(redirectToUrl.Value, HttpContext.Current.Request.Url.Query, args);
                             }
                         }
                     }
