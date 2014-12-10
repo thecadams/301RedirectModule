@@ -43,16 +43,28 @@ namespace SharedSource.RedirectModule
                         if (requestedUrl.Equals(possibleRedirect[Constants.Fields.RequestedUrl], StringComparison.OrdinalIgnoreCase) ||
                              requestedPath.Equals(possibleRedirect[Constants.Fields.RequestedUrl], StringComparison.OrdinalIgnoreCase))
                         {
-                            var redirectToItem = db.GetItem(ID.Parse(possibleRedirect.Fields[Constants.Fields.RedirectTo]));
-                            if (redirectToItem != null)
+
+                            if(possibleRedirect.Fields[Constants.Fields.RedirectToItem].HasValue)
                             {
-                                SendResponse(redirectToItem, HttpContext.Current.Request.Url.Query, args);
+                                var redirectToItem = db.GetItem(ID.Parse(possibleRedirect.Fields[Constants.Fields.RedirectToItem]));
+                                if (redirectToItem != null)
+                                {
+                                    SendResponse(redirectToItem, HttpContext.Current.Request.Url.Query, args);
+                                }
+                            }
+                            else if (possibleRedirect.Fields[Constants.Fields.RedirectToUrl].HasValue)
+                            {
+                                var redirectToRaw = possibleRedirect.Fields[Constants.Fields.RedirectToUrl].Value;
+                                if(!string.IsNullOrEmpty(redirectToRaw))
+                                {
+                                    SendResponse(redirectToRaw, HttpContext.Current.Request.Url.Query, args);
+                                }
                             }
                         }
                     }
                 }
 
-                // Second, we check for pattern matches because we didn't hit on an exact match.
+                // Finally, we check for pattern matches because we didn't hit on an exact match.
                 if (Sitecore.Configuration.Settings.GetBoolSetting(Constants.Settings.RedirPatternMatch, true))
                 {
                     // Loop through the pattern match items to find a match
@@ -161,6 +173,11 @@ namespace SharedSource.RedirectModule
         private static void SendResponse(Item redirectToItem, string queryString, HttpRequestArgs args)
         {
             var redirectToUrl = GetRedirectToUrl(redirectToItem);
+            SendResponse(redirectToUrl, queryString, args);
+        }
+
+        private static void SendResponse(string redirectToUrl, string queryString, HttpRequestArgs args)
+        {
             args.Context.Response.Status = "301 Moved Permanently";
             args.Context.Response.StatusCode = 301;
             args.Context.Response.AddHeader("Location", redirectToUrl + queryString);
