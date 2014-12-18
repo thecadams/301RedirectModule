@@ -7,6 +7,10 @@ Improvements by Chris Adams, [http://www.cadams.com.au/](http://www.cadams.com.a
 
 ## Changelog ##
 
+**Version 1.3:**
+
+* Added support for redirects to a raw Url
+
 **Version 1.2:**
 
 * Added support for i18n and versioned redirects ([https://github.com/thecadams/301RedirectModule/pull/5/commits](https://github.com/thecadams/301RedirectModule/pull/5/commits)) - contributed by [Max Slabyak](https://github.com/maxslabyak)

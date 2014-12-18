@@ -29,7 +29,8 @@ namespace SharedSource.RedirectModule
         public static class Fields
         { 
             public static string RequestedUrl = "Requested Url";
-            public static string RedirectTo = "redirect to";
+            public static string RedirectToItem = "redirect to item";
+            public static string RedirectToUrl = "redirect to url";
             public static string RequestedExpression = "requested expression";
             public static string SourceItem = "source item";
             public static string ItemProcessRedirects = "Items Which Always Process Redirects";
