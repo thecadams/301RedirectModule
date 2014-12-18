@@ -3,13 +3,13 @@
 
 An improved version of the Sitecore 301 redirect module. Original version was created by Chris Castle, available at [http://trac.sitecore.net/301RedirectModule](http://trac.sitecore.net/301RedirectModule)
 
-Improvements by Chris Adams, [http://www.cadams.com.au/](http://www.cadams.com.au/) and [Max Slabyak](https://github.com/maxslabyak)
+Improvements by [Chris Adams](http://www.cadams.com.au/), [Max Slabyak](https://github.com/maxslabyak) and [Mark Wiseman](https://github.com/mawiseman)
 
 ## Changelog ##
 
 **Version 1.3:**
 
-* Added support for redirects to a raw Url
+* Added support for redirects to a raw Url - contributed by [Mark Wiseman](https://github.com/mawiseman)
 
 **Version 1.2:**
 
