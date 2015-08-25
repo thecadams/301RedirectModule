@@ -6,6 +6,9 @@ An improved version of the Sitecore 301 redirect module. Original version was cr
 Improvements by [Chris Adams](http://www.cadams.com.au/), [Max Slabyak](https://github.com/maxslabyak) and [Mark Wiseman](https://github.com/mawiseman)
 
 ## Changelog ##
+**Version 1.4:**
+
+* Added the ability to select HTTP status code (301, 302)
 
 **Version 1.3:**
 
