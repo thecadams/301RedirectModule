@@ -25,6 +25,8 @@ namespace SharedSource.RedirectModule
             public static string VersionedRedirectUrl = "Versioned Redirect Url";
             public static string RedirectPattern = "Redirect Pattern";
             public static string VersionedRedirectPattern = "Versioned Redirect Pattern";
+            public static string ResponseStatusCodeFolder = "Response Status Code Folder";
+            public static string ResponseStatusCode = "Response Status Code";
         }
         public static class Fields
         { 
@@ -34,6 +36,8 @@ namespace SharedSource.RedirectModule
             public static string RequestedExpression = "requested expression";
             public static string SourceItem = "source item";
             public static string ItemProcessRedirects = "Items Which Always Process Redirects";
+            public static string ResponseStatusCode = "Response Status Code";
+            public static string StatusCode = "Status Code";
         }
 
     }

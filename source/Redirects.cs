@@ -43,21 +43,25 @@ namespace SharedSource.RedirectModule
                         if (requestedUrl.Equals(possibleRedirect[Constants.Fields.RequestedUrl], StringComparison.OrdinalIgnoreCase) ||
                              requestedPath.Equals(possibleRedirect[Constants.Fields.RequestedUrl], StringComparison.OrdinalIgnoreCase))
                         {
-
                             var redirectToItemId = possibleRedirect.Fields[Constants.Fields.RedirectToItem];
                             var redirectToUrl = possibleRedirect.Fields[Constants.Fields.RedirectToUrl];
 
                             if (redirectToItemId.HasValue && !string.IsNullOrEmpty(redirectToItemId.ToString()))
                             {
                                 var redirectToItem = db.GetItem(ID.Parse(redirectToItemId));
+
                                 if (redirectToItem != null)
                                 {
-                                    SendResponse(redirectToItem, HttpContext.Current.Request.Url.Query, args);
+                                    var responseStatus = GetResponseStatus(possibleRedirect);
+
+                                    SendResponse(redirectToItem, HttpContext.Current.Request.Url.Query, responseStatus, args);
                                 }
                             }
                             else if (redirectToUrl.HasValue && !string.IsNullOrEmpty(redirectToUrl.ToString()))
                             {
-                                SendResponse(redirectToUrl.Value, HttpContext.Current.Request.Url.Query, args);
+                                var responseStatus = GetResponseStatus(possibleRedirect);
+
+                                SendResponse(redirectToUrl.Value, HttpContext.Current.Request.Url.Query, responseStatus, args);
                             }
                         }
                     }
@@ -96,7 +100,9 @@ namespace SharedSource.RedirectModule
                         if (redirectToItem != null)
                         {
                             var query = pathAndQuery.Length > 1 ? "?" + pathAndQuery[1] : "";
-                            SendResponse(redirectToItem, query, args);
+                            var responseStatus = GetResponseStatus(possibleRedirectPattern);
+
+                            SendResponse(redirectToItem, query, responseStatus, args);
                         }
                     }
                 }
@@ -144,8 +150,6 @@ namespace SharedSource.RedirectModule
                         ret = versionedItems.Any(i => i.Versions.Count > 0)
                             ? ret.Union(versionedItems.Where(i => i.Versions.Count > 0))
                             : ret;
-
-                        
                         break;
                     }
                 case "query": // Sitecore query
@@ -169,16 +173,16 @@ namespace SharedSource.RedirectModule
         /// <summary>
         ///  Once a match is found and we have a Sitecore Item, we can send the 301 response.
         /// </summary>
-        private static void SendResponse(Item redirectToItem, string queryString, HttpRequestArgs args)
+        private static void SendResponse(Item redirectToItem, string queryString, ResponseStatus responseStatus, HttpRequestArgs args)
         {
             var redirectToUrl = GetRedirectToUrl(redirectToItem);
-            SendResponse(redirectToUrl, queryString, args);
+            SendResponse(redirectToUrl, queryString, responseStatus, args);
         }
 
-        private static void SendResponse(string redirectToUrl, string queryString, HttpRequestArgs args)
+        private static void SendResponse(string redirectToUrl, string queryString, ResponseStatus responseStatusCode, HttpRequestArgs args)
         {
-            args.Context.Response.Status = "301 Moved Permanently";
-            args.Context.Response.StatusCode = 301;
+            args.Context.Response.Status = responseStatusCode.Status;
+            args.Context.Response.StatusCode = responseStatusCode.StatusCode;
             args.Context.Response.AddHeader("Location", redirectToUrl + queryString);
             args.Context.Response.End();
         }
@@ -194,6 +198,33 @@ namespace SharedSource.RedirectModule
             }
 
             return LinkManager.GetItemUrl(redirectToItem);
+        }
+
+        private static ResponseStatus GetResponseStatus(Item redirectItem)
+        {
+            var result = new ResponseStatus
+            {
+                Status = "301 Moved Permanently",
+                StatusCode = 301,
+            };
+
+            if (redirectItem != null)
+            {
+                var responseStatusCodeId = redirectItem.Fields[Constants.Fields.ResponseStatusCode];
+
+                if (responseStatusCodeId.HasValue && !string.IsNullOrEmpty(responseStatusCodeId.ToString()))
+                {
+                    var responseStatusCodeItem = redirectItem.Database.GetItem(ID.Parse(responseStatusCodeId));
+
+                    if (responseStatusCodeItem != null)
+                    {
+                        result.Status = responseStatusCodeItem.Name;
+                        result.StatusCode = responseStatusCodeItem.GetIntegerFieldValue(Constants.Fields.StatusCode, result.StatusCode);
+                    }
+                }
+            }
+
+            return result;
         }
     }
 }
