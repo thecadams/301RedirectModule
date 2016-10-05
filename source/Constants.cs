@@ -17,6 +17,7 @@ namespace SharedSource.RedirectModule
             public static string QueryExactMatch = "SharedSource.RedirectModule.QueryType.ExactMatch";
             public static string QueryPatternMatch = "SharedSource.RedirectModule.QueryType.PatternMatch";
             public static string RedirectRootNode = "SharedSource.RedirectModule.RedirectRootNode";
+            public static string AutoGenerateRedirectsOnMove = "SharedSource.RedirectModule.AutoGenerateRedirectsOnMove";
 
         }
         public static class Templates

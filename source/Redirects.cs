@@ -170,12 +170,26 @@ namespace SharedSource.RedirectModule
             return ret ?? new Item[0];
         }
 
+        public static List<Item> GetRedirectsForItem(ID itemID)
+        {
+            // Based off the config file, we can run different types of queries. 
+            Sitecore.Data.Database db = Database.GetDatabase("master");
+            IEnumerable<Item> ret = null;
+            var redirectRoot = Sitecore.Configuration.Settings.GetSetting(Constants.Settings.RedirectRootNode);
+            ret = db.SelectItems(String.Format("{0}//*[@Redirect To Item = '{1}']", redirectRoot, itemID.ToString()));
+
+            // make sure to return an empty list instead of null
+            if (ret == null)
+                return new List<Item>();
+            return ret.ToList<Item>();
+        }
+
         /// <summary>
-        ///  Once a match is found and we have a Sitecore Item, we can send the 301 response.
+        ///  Once a match is found and we have a Sitecore Item, we can send the response.
         /// </summary>
         private static void SendResponse(Item redirectToItem, string queryString, ResponseStatus responseStatus, HttpRequestArgs args)
         {
-            var redirectToUrl = GetRedirectToUrl(redirectToItem);
+            var redirectToUrl = GetRedirectToItemUrl(redirectToItem);
             SendResponse(redirectToUrl, queryString, responseStatus, args);
         }
 
@@ -187,7 +201,7 @@ namespace SharedSource.RedirectModule
             args.Context.Response.End();
         }
 
-        private static string GetRedirectToUrl(Item redirectToItem)
+        private static string GetRedirectToItemUrl(Item redirectToItem)
         {
             if (redirectToItem.Paths.Path.StartsWith(Constants.Paths.MediaLibrary))
             {
@@ -212,8 +226,8 @@ namespace SharedSource.RedirectModule
             {
                 var responseStatusCodeId = redirectItem.Fields[Constants.Fields.ResponseStatusCode];
 
-                if (responseStatusCodeId.HasValue && !string.IsNullOrEmpty(responseStatusCodeId.ToString()))
-                {
+                if (responseStatusCodeId != null && responseStatusCodeId.HasValue && !string.IsNullOrEmpty(responseStatusCodeId.ToString()))
+                {      
                     var responseStatusCodeItem = redirectItem.Database.GetItem(ID.Parse(responseStatusCodeId));
 
                     if (responseStatusCodeItem != null)
