@@ -1,6 +1,6 @@
 ﻿using Sitecore.Data.Items;
 
-namespace SharedSource.RedirectModule
+namespace SharedSource.RedirectModule.Helpers
 {
     /// <summary>
     /// Item Extension class

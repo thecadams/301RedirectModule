@@ -1,4 +1,4 @@
-﻿namespace SharedSource.RedirectModule
+﻿namespace SharedSource.RedirectModule.Classes
 {
     public class ResponseStatus
     {

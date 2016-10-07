@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SharedSource.RedirectModule
+namespace SharedSource.RedirectModule.Commands
 {
     class DeleteRedirect : Command
     {
@@ -27,9 +27,12 @@ namespace SharedSource.RedirectModule
             }
 
             // force the item to refresh
-            Sitecore.Data.Items.Item myItem = Sitecore.Data.Database.GetDatabase("master").GetItem(new ID("{A77111BE-F8AF-4F66-98B2-D6F08650E076}"));
-            string load = String.Concat(new object[] { "item:load(id=", myItem.ID, ",language=", myItem.Language, ",version=", myItem.Version, ")" });
-            Sitecore.Context.ClientPage.SendMessage(this, load);
+            Sitecore.Data.Items.Item myItem = Sitecore.Data.Database.GetDatabase("master").GetItem(new ID(context.Parameters[3]));
+            if (myItem != null)
+            {
+                string load = String.Concat(new object[] { "item:load(id=", myItem.ID, ",language=", myItem.Language, ",version=", myItem.Version, ")" });
+                Sitecore.Context.ClientPage.SendMessage(this, load);
+            }
         }
     }
 }

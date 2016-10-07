@@ -48,15 +48,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Constants.cs" />
-    <Compile Include="ContentEditorRedirectNotification.cs" />
-    <Compile Include="DeleteRedirect.cs" />
-    <Compile Include="ItemExtensions.cs" />
-    <Compile Include="AutoCreateRedirectOnMove.cs" />
+    <Compile Include="Helpers\Constants.cs" />
+    <Compile Include="Processors\ContentEditorRedirectNotification.cs" />
+    <Compile Include="Commands\DeleteRedirect.cs" />
+    <Compile Include="Helpers\ItemExtensions.cs" />
+    <Compile Include="Handlers\AutoCreateRedirectOnMove.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Redirects.cs" />
-    <Compile Include="ResponseStatus.cs" />
+    <Compile Include="Processors\RedirectProcessor.cs" />
+    <Compile Include="Classes\ResponseStatus.cs" />
+    <Compile Include="Rules\Actions\ReplaceString.cs" />
+    <Compile Include="Rules\Conditions\URLStringCondtion.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
