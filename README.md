@@ -6,6 +6,17 @@ An improved version of the Sitecore 301 redirect module. Original version was cr
 Improvements by [Chris Adams](http://www.cadams.com.au/), [Max Slabyak](https://github.com/maxslabyak) and [Mark Wiseman](https://github.com/mawiseman)
 
 ## Changelog ##
+
+**Version 1.5:**
+
+* Added missing English language versions on template fields.
+* Complied against 8.2 dlls
+* Changed Target Framework Version to 4.6.1
+* Added Notifications to Content Editor
+  - If an item is the target of redirects, you can see, manage, and delete them.
+  - If the item is a redirect Url item, you can quickly navigate to the target.
+* Added a handler to automatically generate redirects as pages are moved. This is controlled by a setting in the config file.
+
 **Version 1.4:**
 
 * Added the ability to select HTTP status code (301, 302)
