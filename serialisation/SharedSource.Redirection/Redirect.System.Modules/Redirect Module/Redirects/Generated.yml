@@ -1,0 +1,32 @@
+---
+ID: "46ce2092-ff8d-454e-b826-a2addb7e0ba3"
+Parent: "43a6090d-b80d-4acf-b293-2691c98d83b1"
+Template: "8bef76f0-deaa-4939-b9c1-f357e1875d5d"
+Path: /sitecore/system/Modules/Redirect Module/Redirects/Generated
+DB: master
+SharedFields:
+- ID: "9c6106ea-7a5a-48e2-8cad-f0f693b1e2d4"
+  Hint: __Read Only
+  Type: Checkbox
+  Value: 1
+- ID: "a0cb3965-8884-4c7a-8815-b6b2e5ced162"
+  Hint: __Editors
+  Type: TreelistEx
+  Value: |
+    {59F53BBB-D1F5-4E38-8EBA-0D73109BB59B}
+    {A0C460F4-DBAE-4A5A-8F3A-C4ADFCDACEEA}
+- ID: "ac51462c-8a8d-493b-9492-34d1f26f20f1"
+  Hint: __Default Bucket Query
+  Value: "+location:46ce2092ff8d454eb826a2addb7e0ba3;+custom:_templatename|redirect url"
+- ID: "d312103c-b36c-4ca5-864a-c85f9abda503"
+  Hint: __Is Bucket
+  Type: Checkbox
+  Value: 1
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20161004T225038Z

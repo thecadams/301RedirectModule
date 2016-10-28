@@ -1,0 +1,25 @@
+---
+ID: "4d152c1c-efe4-466a-9c63-0779c7e85fa2"
+Parent: "8bef76f0-deaa-4939-b9c1-f357e1875d5d"
+Template: "8bef76f0-deaa-4939-b9c1-f357e1875d5d"
+Path: /sitecore/templates/Redirect Module/Redirect Folder/__Standard Values
+DB: master
+SharedFields:
+- ID: "1172f251-dad4-4efb-a329-0c63500e4f1e"
+  Hint: __Masters
+  Type: TreelistEx
+  Value: |
+    {8BEF76F0-DEAA-4939-B9C1-F357E1875D5D}
+    {B5967A68-7F70-42D3-9874-0E4D001DBC20}
+    {94AC4F3A-E888-4557-9504-4AD2560ACC12}
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20110729T120617
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: sitecore\admin

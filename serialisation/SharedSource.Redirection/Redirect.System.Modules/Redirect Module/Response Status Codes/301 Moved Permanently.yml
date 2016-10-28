@@ -1,0 +1,28 @@
+---
+ID: "3184b308-c050-4a16-9f82-d77190a28f0f"
+Parent: "38d38e3b-0a34-4f16-a91f-967f8519e14a"
+Template: "c29988a3-65f3-4df9-8c07-369b51e85020"
+Path: /sitecore/system/Modules/Redirect Module/Response Status Codes/301 Moved Permanently
+DB: master
+SharedFields:
+- ID: "bb323299-ba89-41b0-91d8-163e6d2f2e87"
+  Hint: Status Code
+  Value: 301
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20150824T152501
+- Language: "fr-CA"
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20150824T152208
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: sitecore\admin

@@ -1,0 +1,78 @@
+---
+ID: "4bab8adc-cdb3-4b35-afe7-821fd0346ac0"
+Parent: "dd3eeae7-44ce-48e2-95af-777b6ece9d5d"
+Template: "f90052a5-b4e6-4e6d-9812-1e1b88a6fcea"
+Path: /sitecore/system/Settings/Rules/Definitions/Elements/Redirect Manager/Replace string
+DB: master
+SharedFields:
+- ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
+  Hint: __Sortorder
+  Value: 400
+- ID: "ff55d5a7-6d4b-4cd1-83e0-bac268073f66"
+  Hint: Type
+  Value: SharedSource.RedirectManager.Rules.Actions.ReplaceString,SharedSource.RedirectModule
+Languages:
+- Language: da
+  Fields:
+  - ID: "b5e02ad9-d56f-4c41-a065-a133db87bdeb"
+    Hint: __Display name
+    Value: OrderBy
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20160729T133418Z
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: sitecore\admin
+    - ID: "eeb36a3b-40d9-4af5-862a-de257b84dca3"
+      Hint: Text
+      Value: "sortér resultater efter [orderOperator,OrderByOperator,,order operator] [fieldName,,,field name]"
+- Language: "de-DE"
+  Fields:
+  - ID: "b5e02ad9-d56f-4c41-a065-a133db87bdeb"
+    Hint: __Display name
+    Value: GeordnetNach
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20160729T133549Z
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: sitecore\admin
+    - ID: "eeb36a3b-40d9-4af5-862a-de257b84dca3"
+      Hint: Text
+      Value: "Ergebnisse sortieren nach [orderOperator,OrderByOperator,,order operator] [fieldName,,,Feldname]"
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20130910T155826
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: sitecore\admin
+    - ID: "eeb36a3b-40d9-4af5-862a-de257b84dca3"
+      Hint: Text
+      Value: "replace the static [old,,,text] with the static [new,,,text] "
+- Language: "ja-JP"
+  Fields:
+  - ID: "b5e02ad9-d56f-4c41-a065-a133db87bdeb"
+    Hint: __Display name
+    Value: OrderBy
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20160729T133719Z
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: sitecore\admin
+    - ID: "eeb36a3b-40d9-4af5-862a-de257b84dca3"
+      Hint: Text
+      Value: "[fieldName,,,フィールド名] を [orderOperator,OrderByOperator,,並べ替えルール] で並べ替える"

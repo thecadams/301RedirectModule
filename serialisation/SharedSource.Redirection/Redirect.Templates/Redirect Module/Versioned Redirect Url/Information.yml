@@ -1,0 +1,17 @@
+---
+ID: "86045c5a-fed5-4af5-9c2f-961ca3bafbb0"
+Parent: "43a0928c-d38e-44a3-9e3f-d111e3b826ac"
+Template: "e269fbb5-3750-427a-9149-7aa950b49301"
+Path: /sitecore/templates/Redirect Module/Versioned Redirect Url/Information
+DB: master
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20110729T120221
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: sitecore\admin
