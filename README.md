@@ -7,6 +7,11 @@ Improvements by [Chris Adams](http://www.cadams.com.au/), [Max Slabyak](https://
 
 ## Changelog ##
 
+**Version 1.6:**
+
+* Fixed a bug int he delete command that is in the notification bar.
+* Added a rule based redirect 
+
 **Version 1.5:**
 
 * Added missing English language versions on template fields.
