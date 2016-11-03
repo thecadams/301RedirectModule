@@ -1,0 +1,14 @@
+---
+ID: "5d71299d-cf0a-4f1b-91f1-500dafea081a"
+Parent: "73df0e8d-17fc-4715-b2eb-fa60349c4fdf"
+Template: "aa91a868-02f2-41d3-8b78-1cad91b4dcae"
+Path: /sitecore/system/Settings/Rules/Definitions/Tags/Redirect Manager/Visibility
+DB: master
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20161005T221038Z

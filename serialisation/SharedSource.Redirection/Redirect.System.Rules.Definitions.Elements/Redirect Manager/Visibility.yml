@@ -1,0 +1,18 @@
+---
+ID: "a5473b52-d416-4ac2-8ec4-5599395827b7"
+Parent: "dd3eeae7-44ce-48e2-95af-777b6ece9d5d"
+Template: "aa91a868-02f2-41d3-8b78-1cad91b4dcae"
+Path: /sitecore/system/Settings/Rules/Definitions/Elements/Redirect Manager/Visibility
+DB: master
+SharedFields:
+- ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
+  Hint: __Sortorder
+  Value: 900
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20161005T215501Z

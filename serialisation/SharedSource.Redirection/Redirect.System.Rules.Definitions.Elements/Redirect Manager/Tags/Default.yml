@@ -1,0 +1,21 @@
+---
+ID: "c02fca52-717c-40d7-bea9-0ae15fa39ce7"
+Parent: "e2115d53-49c2-487a-a955-45fe7791971f"
+Template: "854ba861-63ea-4a0c-8c7b-541e9a7ec4c1"
+Path: /sitecore/system/Settings/Rules/Definitions/Elements/Redirect Manager/Tags/Default
+DB: master
+SharedFields:
+- ID: "42f77151-098f-496a-94cf-590b7edeeabe"
+  Hint: Tags
+  Type: Multilist
+  Value: |
+    {73DF0E8D-17FC-4715-B2EB-FA60349C4FDF}
+    {67D3BB0D-8883-474A-B6D4-D7CB20B0D1AC}
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20161005T215500Z

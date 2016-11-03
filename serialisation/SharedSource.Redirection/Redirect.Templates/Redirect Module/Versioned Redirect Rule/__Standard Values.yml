@@ -1,0 +1,21 @@
+---
+ID: "fc0d2678-40ab-4552-a468-35ff9fc5c5fe"
+Parent: "0ce63b2f-bf33-4277-af9a-a172f943c99e"
+Template: "0ce63b2f-bf33-4277-af9a-a172f943c99e"
+Path: /sitecore/templates/Redirect Module/Versioned Redirect Rule/__Standard Values
+DB: master
+SharedFields:
+- ID: "06d5295c-ed2f-4a54-9bf2-26228d113318"
+  Hint: __Icon
+  Value: software/32x32/breakpoint_ok.png
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20111001T002952
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: sitecore\admin

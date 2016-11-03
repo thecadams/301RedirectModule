@@ -1,0 +1,24 @@
+---
+ID: "8431a945-bb63-43c5-98f6-f9078606684d"
+Parent: "74a18762-3ec3-4bb4-9a47-d9be8ca83046"
+Template: "74a18762-3ec3-4bb4-9a47-d9be8ca83046"
+Path: /sitecore/templates/Redirect Module/Redirect Base/__Standard Values
+DB: master
+SharedFields:
+- ID: "06d5295c-ed2f-4a54-9bf2-26228d113318"
+  Hint: __Icon
+  Value: Applications/16x16/media_step_forward.png
+- ID: "b0aa4048-823b-4466-83c5-6b920b3cfc36"
+  Hint: Response Status Code
+  Value: "{3184B308-C050-4A16-9F82-D77190A28F0F}"
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20150825T135036
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: sitecore\admin
