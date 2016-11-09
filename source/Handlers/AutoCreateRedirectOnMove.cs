@@ -19,7 +19,7 @@ namespace SharedSource.RedirectModule.Handlers
             Assert.ArgumentNotNull(sender, "sender");
             Assert.ArgumentNotNull(args, "args");
 
-            if (Sitecore.Configuration.Settings.GetBoolSetting(Constants.Settings.RedirectRootNode, true))
+            if (Sitecore.Configuration.Settings.GetBoolSetting(Constants.Settings.AutoGenerateRedirectsOnMove, true))
             {
                 Item item = Event.ExtractParameter<Item>(args, 0);
                 ID oldParentID = Event.ExtractParameter<ID>(args, 1);
