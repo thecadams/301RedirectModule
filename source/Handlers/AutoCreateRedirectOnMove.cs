@@ -35,8 +35,12 @@ namespace SharedSource.RedirectModule.Handlers
         {
             // we only want a redirect on pages and media assets
             if (oldParent.Paths.IsContentItem || oldParent.Paths.IsMediaItem)
-            {    
-                string oldPath = LinkManager.GetItemUrl(oldParent).Replace("/sitecore/shell", "") + "/" + LinkManager.GetItemUrl(item).Split('/').Last();
+            {
+                var parentPath = LinkManager.GetItemUrl(oldParent).Replace("/sitecore/shell", "");
+                if (!parentPath.Equals("/") && parentPath.Length > 0)
+                    parentPath += "/";
+                string oldPath = parentPath + LinkManager.GetItemUrl(item).Split('/').Last();
+
                 Database db = Sitecore.Configuration.Factory.GetDatabase("master");
                 // Get the generated folder underneath the redirects folder.  It is a bucketed item.
                 Item parentItem = db.GetItem(new ID("{46CE2092-FF8D-454E-B826-A2ADDB7E0BA3}"));
@@ -49,7 +53,7 @@ namespace SharedSource.RedirectModule.Handlers
                     if (template != null)
                     {
                         // Create the item
-                        Item newItem = parentItem.Add(ItemUtil.ProposeValidItemName(oldPath.Replace('/',' ')), template);
+                        Item newItem = parentItem.Add(ItemUtil.ProposeValidItemName(oldPath.Replace('/', ' ')), template);
 
                         newItem.Editing.BeginEdit();
                         try
