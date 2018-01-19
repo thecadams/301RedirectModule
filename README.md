@@ -3,7 +3,7 @@
 
 An improved version of the Sitecore 301 redirect module. Original version was created by Chris Castle, available at [http://trac.sitecore.net/301RedirectModule](http://trac.sitecore.net/301RedirectModule)
 
-Improvements by [Chris Adams](http://www.cadams.com.au/), [Max Slabyak](https://github.com/maxslabyak) and [Mark Wiseman](https://github.com/mawiseman)
+Improvements by [Chris Adams](http://www.cadams.com.au/), [Max Slabyak](https://github.com/maxslabyak), [Mark Wiseman](https://github.com/mawiseman), [Thomas Baek](https://github.com/ThomasBaek), and [timgriff84](https://github.com/timgriff84)
 
 ## Changelog ##
 
