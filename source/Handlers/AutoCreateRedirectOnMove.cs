@@ -1,6 +1,5 @@
 ﻿using SharedSource.RedirectModule.Helpers;
 using Sitecore.Data;
-using Sitecore.Data.Events;
 using Sitecore.Data.Items;
 using Sitecore.Diagnostics;
 using Sitecore.Events;

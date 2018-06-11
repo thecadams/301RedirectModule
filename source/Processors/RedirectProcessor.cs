@@ -25,7 +25,7 @@ namespace SharedSource.RedirectModule.Processors
         /// </summary>
         public override void Process(HttpRequestArgs args)
         {
-            // This processer is added to the pipeline after the Sitecore Item Resolver.  We want to skip everything if the item resolved successfully.
+            // This processor is added to the pipeline after the Sitecore Item Resolver.  We want to skip everything if the item resolved successfully.
             // Also, skip processing for the visitor identification items related to DMS.
             Assert.ArgumentNotNull(args, "args");
             if ((Sitecore.Context.Item == null || AllowRedirectsOnFoundItem(Sitecore.Context.Database)) && args.LocalPath != Constants.Paths.VisitorIdentification && Sitecore.Context.Database != null)
@@ -39,7 +39,7 @@ namespace SharedSource.RedirectModule.Processors
                 // First, we check for exact matches because those take priority over pattern matches.
                 if (Sitecore.Configuration.Settings.GetBoolSetting(Constants.Settings.RedirExactMatch, true))
                 {
-                    CheckForDirectMatch(db, requestedUrl, requestedPath, args);                    
+                    CheckForDirectMatch(db, requestedUrl, requestedPath, args);
                 }
 
                 // Next, we check for pattern matches because we didn't hit on an exact match.
@@ -153,7 +153,7 @@ namespace SharedSource.RedirectModule.Processors
                                 action.Apply(ruleContext);
                             }
                         }
-                    }   
+                    }
                 }
 
                 if (ruleContext.Parameters["newUrl"] != null && ruleContext.Parameters["newUrl"].ToString() != string.Empty && ruleContext.Parameters["newUrl"].ToString() != requestedUrl)
@@ -181,13 +181,13 @@ namespace SharedSource.RedirectModule.Processors
         /// <summary>
         ///  This method return all of the possible matches for either the exact matches or the pattern matches
         ///  Note: Because Fast Query does not guarantee to return items in the current language context
-        ///  (e.g. while in US/English, results may include other language items as well, even if the 
+        ///  (e.g. while in US/English, results may include other language items as well, even if the
         ///  US/EN language has no active versions), an additional LINQ query has to be run to filter for language.
         ///  Choose your query type appropriately.
         /// </summary>
         private static IEnumerable<Item> GetRedirects(Database db, string templateName, string versionedTemplateName, string queryType)
         {
-            // Based off the config file, we can run different types of queries. 
+            // Based off the config file, we can run different types of queries.
             IEnumerable<Item> ret = null;
             var redirectRoot = Sitecore.Configuration.Settings.GetSetting(Constants.Settings.RedirectRootNode);
             switch (queryType)
@@ -195,12 +195,12 @@ namespace SharedSource.RedirectModule.Processors
                 case "fast": // fast query
                     {
                         //process shared template items
-                        ret = db.SelectItems(String.Format("fast:{0}//*[@@templatename='{1}']", redirectRoot, templateName));
+                        ret = db.SelectItems($"fast:{redirectRoot}//*[@@templatename='{templateName}']");
 
                         //because fast query requires to check for active versions in the current language
                         //run a separate query for versioned items to see if this is even necessary.
                         //if only shared templates exist in System/Modules, this step is extraneous and unnecessary.
-                        IEnumerable<Item> versionedItems = db.SelectItems(String.Format("fast:{0}//*[@@templatename='{1}']", redirectRoot, versionedTemplateName));
+                        IEnumerable<Item> versionedItems = db.SelectItems($"fast:{redirectRoot}//*[@@templatename='{versionedTemplateName}']");
 
                         //if active versions of items in the current context exist, union the two IEnumerable lists together.
                         ret = versionedItems.Any(i => i.Versions.Count > 0)
@@ -210,7 +210,7 @@ namespace SharedSource.RedirectModule.Processors
                     }
                 case "query": // Sitecore query
                     {
-                        ret = db.SelectItems(String.Format("{0}//*[@@templatename='{1}' or @@templatename='{2}']", redirectRoot, templateName, versionedTemplateName));
+                        ret = db.SelectItems($"{redirectRoot}//*[@@templatename='{templateName}' or @@templatename='{versionedTemplateName}']");
                         break;
                     }
                 default: // API LINQ
@@ -225,7 +225,7 @@ namespace SharedSource.RedirectModule.Processors
             // make sure to return an empty list instead of null
             return ret ?? new Item[0];
         }
-                
+
         /// <summary>
         ///  Once a match is found and we have a Sitecore Item, we can send the response.
         /// </summary>
@@ -264,20 +264,16 @@ namespace SharedSource.RedirectModule.Processors
                 StatusCode = 301,
             };
 
-            if (redirectItem != null)
+            var responseStatusCodeId = redirectItem?.Fields[Constants.Fields.ResponseStatusCode];
+
+            if (string.IsNullOrEmpty(responseStatusCodeId?.ToString())) return result;
+
+            var responseStatusCodeItem = redirectItem.Database.GetItem(ID.Parse(responseStatusCodeId));
+
+            if (responseStatusCodeItem != null)
             {
-                var responseStatusCodeId = redirectItem.Fields[Constants.Fields.ResponseStatusCode];
-
-                if (responseStatusCodeId != null && responseStatusCodeId.HasValue && !string.IsNullOrEmpty(responseStatusCodeId.ToString()))
-                {      
-                    var responseStatusCodeItem = redirectItem.Database.GetItem(ID.Parse(responseStatusCodeId));
-
-                    if (responseStatusCodeItem != null)
-                    {
-                        result.Status = responseStatusCodeItem.Name;
-                        result.StatusCode = responseStatusCodeItem.GetIntegerFieldValue(Constants.Fields.StatusCode, result.StatusCode);
-                    }
-                }
+                result.Status = responseStatusCodeItem.Name;
+                result.StatusCode = responseStatusCodeItem.GetIntegerFieldValue(Constants.Fields.StatusCode, result.StatusCode);
             }
 
             return result;

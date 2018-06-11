@@ -31,11 +31,11 @@ namespace SharedSource.RedirectModule.Processors
 
         public static List<Item> GetRedirectsForItem(ID itemID)
         {
-            // Based off the config file, we can run different types of queries. 
+            // Based off the config file, we can run different types of queries.
             Sitecore.Data.Database db = Database.GetDatabase("master");
             IEnumerable<Item> ret = null;
             var redirectRoot = Sitecore.Configuration.Settings.GetSetting(Constants.Settings.RedirectRootNode);
-            ret = db.SelectItems(String.Format("{0}//*[@Redirect To Item = '{1}']", redirectRoot, itemID.ToString()));
+            ret = db.SelectItems($"{redirectRoot}//*[@Redirect To Item = '{itemID}']");
 
             // make sure to return an empty list instead of null
             if (ret == null)
@@ -48,8 +48,8 @@ namespace SharedSource.RedirectModule.Processors
             Sitecore.Pipelines.GetContentEditorWarnings.GetContentEditorWarningsArgs.ContentEditorWarning note = args.Add();
             note.Title = Translate.Text("Redirect Manager");
             note.Text = String.Format(Translate.Text("The URL \"{0}\" is currently redirecting to this page."), redirectitem["Requested Url"]);
-            note.AddOption(Translate.Text("Review the redirect definition"), string.Format("item:load(id={0}, language={1}, version={2})", redirectitem.ID, redirectitem.Language, redirectitem.Version));
-            note.AddOption(Translate.Text("Delete the redirect definition"), string.Format("redirectmanager:delete(id={0}, language={1}, version={2}, item={3})", redirectitem.ID, redirectitem.Language, redirectitem.Version, item.ID));
+            note.AddOption(Translate.Text("Review the redirect definition"), $"item:load(id={redirectitem.ID}, language={redirectitem.Language}, version={redirectitem.Version})");
+            note.AddOption(Translate.Text("Delete the redirect definition"), $"redirectmanager:delete(id={redirectitem.ID}, language={redirectitem.Language}, version={redirectitem.Version}, item={item.ID})");
         }
 
         protected void AddLinkToRedirectItem(string message, Sitecore.Data.Items.Item item, Sitecore.Pipelines.GetContentEditorWarnings.GetContentEditorWarningsArgs args)
@@ -61,7 +61,7 @@ namespace SharedSource.RedirectModule.Processors
                 Sitecore.Pipelines.GetContentEditorWarnings.GetContentEditorWarningsArgs.ContentEditorWarning note = args.Add();
                 note.Title = Translate.Text("Redirect Manager");
                 note.Text = Translate.Text("This item is a redirect item.  Would you like to manage the redirect target?");
-                note.AddOption(target.DisplayName, string.Format("item:load(id={0}, language={1}, version={2})", target.ID, target.Language, target.Version));
+                note.AddOption(target.DisplayName, $"item:load(id={target.ID}, language={target.Language}, version={target.Version})");
             }
         }
     }

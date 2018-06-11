@@ -1,13 +1,7 @@
 ﻿using Sitecore.Data;
 using Sitecore.Data.Items;
-using Sitecore.Shell.Framework;
 using Sitecore.Shell.Framework.Commands;
 using Sitecore.Web.UI.Sheer;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SharedSource.RedirectModule.Commands
 {
@@ -30,7 +24,7 @@ namespace SharedSource.RedirectModule.Commands
             Sitecore.Data.Items.Item myItem = Sitecore.Data.Database.GetDatabase("master").GetItem(new ID(context.Parameters[3]));
             if (myItem != null)
             {
-                string load = String.Concat(new object[] { "item:load(id=", myItem.ID, ",language=", myItem.Language, ",version=", myItem.Version, ")" });
+                string load = string.Concat(new object[] { "item:load(id=", myItem.ID, ",language=", myItem.Language, ",version=", myItem.Version, ")" });
                 Sitecore.Context.ClientPage.SendMessage(this, load);
             }
         }

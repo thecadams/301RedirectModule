@@ -18,9 +18,7 @@ namespace SharedSource.RedirectModule.Helpers
 
             if (field != null && field.HasValue)
             {
-                int result;
-
-                if (int.TryParse(field.Value, out result))
+                if (int.TryParse(field.Value, out var result))
                 {
                     return result;
                 }
