@@ -1,4 +1,4 @@
-﻿using Sitecore.Diagnostics;
+using Sitecore.Diagnostics;
 using System.Web;
 
 namespace SharedSource.RedirectModule.Rules.Conditions
