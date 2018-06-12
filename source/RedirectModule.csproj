@@ -68,7 +68,7 @@
     <Compile Include="Processors\RedirectProcessor.cs" />
     <Compile Include="Classes\ResponseStatus.cs" />
     <Compile Include="Rules\Actions\ReplaceString.cs" />
-    <Compile Include="Rules\Conditions\URLStringCondtion.cs" />
+    <Compile Include="Rules\Conditions\URLStringCondition.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -77,7 +77,7 @@
     <Content Include=".gitignore" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>
