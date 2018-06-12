@@ -1,9 +1,9 @@
-﻿using Sitecore.Diagnostics;
+using Sitecore.Diagnostics;
 using System.Web;
 
 namespace SharedSource.RedirectModule.Rules.Conditions
 {
-    public class URLStringCondtion<T> : Sitecore.Rules.Conditions.StringOperatorCondition<T> where T : Sitecore.Rules.RuleContext
+    public class URLStringCondition<T> : Sitecore.Rules.Conditions.StringOperatorCondition<T> where T : Sitecore.Rules.RuleContext
     {
         public string Value { get; set; }
 

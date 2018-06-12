@@ -10,8 +10,8 @@ namespace SharedSource.RedirectManager.Rules.Actions
 
         public override void Apply(T ruleContext)
         {
-            if (ruleContext.Parameters["newUrl"] != null)                           
-                ruleContext.Parameters["newUrl"] = Convert.ToString(ruleContext.Parameters["newUrl"]).Replace(Old, New);            
+            if (ruleContext.Parameters["newUrl"] != null)
+                ruleContext.Parameters["newUrl"] = Convert.ToString(ruleContext.Parameters["newUrl"]).Replace(Old, New);
         }
     }
 }
