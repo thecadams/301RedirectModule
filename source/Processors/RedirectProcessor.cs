@@ -185,7 +185,7 @@ namespace SharedSource.RedirectModule.Processors
         ///  US/EN language has no active versions), an additional LINQ query has to be run to filter for language.
         ///  Choose your query type appropriately.
         /// </summary>
-        private static IEnumerable<Item> GetRedirects(Database db, string templateName, string versionedTemplateName, string queryType)
+        public virtual IEnumerable<Item> GetRedirects(Database db, string templateName, string versionedTemplateName, string queryType)
         {
             // Based off the config file, we can run different types of queries.
             IEnumerable<Item> ret = null;
