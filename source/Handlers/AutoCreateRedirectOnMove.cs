@@ -1,12 +1,12 @@
-﻿using SharedSource.RedirectModule.Helpers;
+﻿using System;
+using System.Linq;
+using SharedSource.RedirectModule.Helpers;
+using Sitecore.Configuration;
 using Sitecore.Data;
 using Sitecore.Data.Items;
 using Sitecore.Diagnostics;
 using Sitecore.Events;
-using Sitecore.Links;
 using Sitecore.SecurityModel;
-using System;
-using System.Linq;
 
 namespace SharedSource.RedirectModule.Handlers
 {
@@ -18,10 +18,10 @@ namespace SharedSource.RedirectModule.Handlers
             Assert.ArgumentNotNull(sender, "sender");
             Assert.ArgumentNotNull(args, "args");
 
-            if (Sitecore.Configuration.Settings.GetBoolSetting(Constants.Settings.AutoGenerateRedirectsOnMove, true))
+            if (Settings.GetBoolSetting(Constants.Settings.AutoGenerateRedirectsOnMove, true))
             {
-                Item item = Event.ExtractParameter<Item>(args, 0);
-                ID oldParentID = Event.ExtractParameter<ID>(args, 1);
+                var item = Event.ExtractParameter<Item>(args, 0);
+                var oldParentID = Event.ExtractParameter<ID>(args, 1);
 
                 using (new SecurityDisabler())
                 {
@@ -30,47 +30,64 @@ namespace SharedSource.RedirectModule.Handlers
             }
         }
 
-        public virtual void CreateRedirectItem(Item item, Item oldParent)
+        public virtual void CreateRedirectItem(Item item, Item oldParentItem)
         {
-            // we only want a redirect on pages and media assets
-            if (oldParent.Paths.IsContentItem || oldParent.Paths.IsMediaItem)
+            // we only want a redirect on pages and media assets & Item's which has layout assigned
+            if (!oldParentItem.Paths.IsContentItem && !oldParentItem.Paths.IsMediaItem && !item.HasLayout()) return;
+
+            string redirectNode;
+            string replaceText;
+
+
+            var siteInfo = item.GetMatchingSites().FirstOrDefault(q => !string.IsNullOrWhiteSpace(q.GetRedirectNode()));
+            if (siteInfo == null)
             {
-                var parentPath = LinkManager.GetItemUrl(oldParent).Replace("/sitecore/shell", "");
-                if (!parentPath.Equals("/") && parentPath.Length > 0)
-                    parentPath += "/";
-                string oldPath = parentPath + LinkManager.GetItemUrl(item).Split('/').Last();
+                redirectNode = Constants.Paths.GlobalRedirectNode();
+                replaceText = "/sitecore/shell/sitecore/content/home";
+            }
+            else
+            {
+                redirectNode = siteInfo.GetRedirectNode();
+                replaceText = $"/sitecore/shell{siteInfo.RootPath}{siteInfo.StartItem}".ToLower();
+            }
 
-                Database db = Sitecore.Configuration.Factory.GetDatabase("master");
-                // Get the generated folder underneath the redirects folder.  It is a bucketed item.
-                Item parentItem = db.GetItem(new ID("{46CE2092-FF8D-454E-B826-A2ADDB7E0BA3}"));
 
-                if (parentItem != null)
-                {
-                    //Now we need to get the template from which the item is created (Redirect Url)
-                    TemplateItem template = db.GetTemplate(new ID("{B5967A68-7F70-42D3-9874-0E4D001DBC20}"));
+            var masterDb = Factory.GetDatabase("master");
 
-                    if (template != null)
-                    {
-                        // Create the item
-                        Item newItem = parentItem.Add(ItemUtil.ProposeValidItemName(oldPath.Replace('/', ' ')), template);
+            // Get the generated folder underneath the redirect node.  It is a bucketed item.
+            var generatedFolder = masterDb.GetItem($"{redirectNode}/Generated");
+            if (generatedFolder == null) return;
 
-                        newItem.Editing.BeginEdit();
-                        try
-                        {
-                            // Assign values to the fields of the new item
-                            newItem.Fields["Requested Url"].Value = oldPath;
-                            newItem.Fields["Response Status Code"].Value = "{3184B308-C050-4A16-9F82-D77190A28F0F}";  // 301
-                            newItem.Fields["Redirect To Item"].Value = item.ID.ToString();
-                            newItem.Editing.EndEdit();
-                        }
-                        catch (System.Exception ex)
-                        {
-                            // The update failed, write a message to the log
-                            Sitecore.Diagnostics.Log.Error("Could not update item " + newItem.Paths.FullPath + ": " + ex.Message, this);
-                            newItem.Editing.CancelEdit();
-                        }
-                    }
-                }
+            // generate proper Url
+            var oldParentUrl = oldParentItem.GetNavigationUrl().Replace(replaceText, "");
+
+            // Replacing aspx extension on parent item if default URL options has it
+            if (!oldParentUrl.Equals("/") && oldParentUrl.Length > 0)
+                oldParentUrl = $"{oldParentUrl.Replace(".aspx", "")}/";
+
+            var oldItemUrl = oldParentUrl + item.GetNavigationUrl().Split('/').Last();
+
+            //Now we need to get the template from which the item is created (Redirect Url)
+            var template = masterDb.GetTemplate(new ID("{B5967A68-7F70-42D3-9874-0E4D001DBC20}"));
+            if (template == null) return;
+
+            // Create the item
+            var newItem = generatedFolder.Add(ItemUtil.ProposeValidItemName(oldItemUrl.Replace(".aspx", "").Replace('/', ' ')), template);
+
+            newItem.Editing.BeginEdit();
+            try
+            {
+                // Assign values to the fields of the new item
+                newItem.Fields["Requested Url"].Value = oldItemUrl;
+                newItem.Fields["Response Status Code"].Value = "{3184B308-C050-4A16-9F82-D77190A28F0F}"; // 301
+                newItem.Fields["Redirect To Item"].Value = item.ID.ToString();
+                newItem.Editing.EndEdit();
+            }
+            catch (Exception ex)
+            {
+                // The update failed, write a message to the log
+                Log.Error("Could not update item " + newItem.Paths.FullPath + ": " + ex.Message, this);
+                newItem.Editing.CancelEdit();
             }
         }
     }

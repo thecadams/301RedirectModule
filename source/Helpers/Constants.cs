@@ -8,6 +8,8 @@ namespace SharedSource.RedirectModule.Helpers
         {
             public static string VisitorIdentification = "/layouts/system/visitoridentification";
             public static string MediaLibrary = "/sitecore/media library/";
+
+            public static string GlobalRedirectNode() => Settings.RedirectRootNode.GetConfigValue();
         }
 
         public static class Settings
@@ -22,7 +24,7 @@ namespace SharedSource.RedirectModule.Helpers
 
         }
         public static class Templates
-        { 
+        {
             public static string RedirectUrl = "Redirect Url";
             public static string VersionedRedirectUrl = "Versioned Redirect Url";
             public static string RedirectPattern = "Redirect Pattern";
@@ -33,7 +35,7 @@ namespace SharedSource.RedirectModule.Helpers
             public static string ResponseStatusCode = "Response Status Code";
         }
         public static class Fields
-        { 
+        {
             public static string RequestedUrl = "Requested Url";
             public static string RedirectToItem = "redirect to item";
             public static string RedirectToUrl = "redirect to url";

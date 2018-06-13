@@ -62,7 +62,7 @@
     <Compile Include="Helpers\Constants.cs" />
     <Compile Include="Processors\ContentEditorRedirectNotification.cs" />
     <Compile Include="Commands\DeleteRedirect.cs" />
-    <Compile Include="Helpers\ItemExtensions.cs" />
+    <Compile Include="Helpers\Extensions.cs" />
     <Compile Include="Handlers\AutoCreateRedirectOnMove.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Processors\RedirectProcessor.cs" />
