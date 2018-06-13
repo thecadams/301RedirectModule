@@ -29,7 +29,7 @@ namespace SharedSource.RedirectModule.Processors
                 AddLinkToRedirectItem(string.Empty, currentItem, args);
         }
 
-        public static List<Item> GetRedirectsForItem(ID itemID)
+        public virtual List<Item> GetRedirectsForItem(ID itemID)
         {
             // Based off the config file, we can run different types of queries.
             Sitecore.Data.Database db = Database.GetDatabase("master");

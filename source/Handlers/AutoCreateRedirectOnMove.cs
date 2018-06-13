@@ -30,7 +30,7 @@ namespace SharedSource.RedirectModule.Handlers
             }
         }
 
-        private void CreateRedirectItem(Item item, Item oldParent)
+        public virtual void CreateRedirectItem(Item item, Item oldParent)
         {
             // we only want a redirect on pages and media assets
             if (oldParent.Paths.IsContentItem || oldParent.Paths.IsMediaItem)
