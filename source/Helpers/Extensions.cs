@@ -56,7 +56,7 @@ namespace SharedSource.RedirectModule.Helpers
                 LowercaseUrls = true
             };
 
-            return !item.Paths.IsMediaItem ? LinkManager.GetItemUrl(item, urlOptions).ToLower() : MediaManager.GetMediaUrl(item, mediaOptions);
+            return !item.Paths.IsMediaItem ? LinkManager.GetItemUrl(item, urlOptions).ToLower() : MediaManager.GetMediaUrl(item, mediaOptions).ToLower();
         }
 
         /// <summary>
@@ -96,8 +96,13 @@ namespace SharedSource.RedirectModule.Helpers
         /// <returns>The <see cref="SiteInfo"/>.</returns>
         public static IEnumerable<SiteInfo> GetMatchingSites(this Item item)
         {
+            var contentPath = item.Paths.ContentPath.ToLower();
+
             return SiteContextFactory.Sites
-                .Where(q => !string.IsNullOrWhiteSpace(q.RootPath) && item.Paths.ContentPath.StartsWith(q.StartItem))
+                .Where(q => !string.IsNullOrWhiteSpace(q.RootPath)
+                            && !string.IsNullOrWhiteSpace(q.StartItem)
+                            && q.VirtualFolder.Equals("/")
+                            && contentPath.StartsWith(q.StartItem.ToLower()))
                 .OrderBy(q => q.Name);
         }
     }

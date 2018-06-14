@@ -43,12 +43,12 @@ namespace SharedSource.RedirectModule.Handlers
             if (siteInfo == null)
             {
                 redirectNode = Constants.Paths.GlobalRedirectNode();
-                replaceText = "/sitecore/shell/sitecore/content/home";
+                replaceText = item.Paths.FullPath.Replace(item.Paths.ContentPath, string.Empty).ToLower();
             }
             else
             {
                 redirectNode = siteInfo.GetRedirectNode();
-                replaceText = $"/sitecore/shell{siteInfo.RootPath}{siteInfo.StartItem}".ToLower();
+                replaceText = $"{siteInfo.RootPath}{siteInfo.StartItem}".ToLower();
             }
 
 
@@ -59,11 +59,11 @@ namespace SharedSource.RedirectModule.Handlers
             if (generatedFolder == null) return;
 
             // generate proper Url
-            var oldParentUrl = oldParentItem.GetNavigationUrl().Replace(replaceText, "");
+            var oldParentUrl = oldParentItem.GetNavigationUrl().Replace("/sitecore/shell", string.Empty).Replace(replaceText, string.Empty);
 
             // Replacing aspx extension on parent item if default URL options has it
             if (!oldParentUrl.Equals("/") && oldParentUrl.Length > 0)
-                oldParentUrl = $"{oldParentUrl.Replace(".aspx", "")}/";
+                oldParentUrl = $"{oldParentUrl.Replace(".aspx", string.Empty)}/";
 
             var oldItemUrl = oldParentUrl + item.GetNavigationUrl().Split('/').Last();
 
@@ -72,7 +72,7 @@ namespace SharedSource.RedirectModule.Handlers
             if (template == null) return;
 
             // Create the item
-            var newItem = generatedFolder.Add(ItemUtil.ProposeValidItemName(oldItemUrl.Replace(".aspx", "").Replace('/', ' ')), template);
+            var newItem = generatedFolder.Add(ItemUtil.ProposeValidItemName(oldItemUrl.Replace(".aspx", string.Empty).Replace('/', ' ')), template);
 
             newItem.Editing.BeginEdit();
             try
