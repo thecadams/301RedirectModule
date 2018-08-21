@@ -33,18 +33,6 @@
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'SC82|AnyCPU'">
-    <OutputPath>bin\SC82\</OutputPath>
-    <DefineConstants>TRACE;SC82</DefineConstants>
-    <Optimize>true</Optimize>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'SC90|AnyCPU'">
-    <OutputPath>bin\SC90\</OutputPath>
-    <DefineConstants>TRACE;SC90</DefineConstants>
-    <Optimize>true</Optimize>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
-  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Sitecore.Kernel, Version=10.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\Sitecore.Kernel.NoReferences.8.2.160729\lib\NET452\Sitecore.Kernel.dll</HintPath>
