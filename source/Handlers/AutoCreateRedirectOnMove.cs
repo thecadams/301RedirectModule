@@ -23,6 +23,9 @@ namespace SharedSource.RedirectModule.Handlers
                 Item item = Event.ExtractParameter<Item>(args, 0);
                 ID oldParentID = Event.ExtractParameter<ID>(args, 1);
 
+                // do not create redirect if path has not changed
+                if (oldParentID == item.ParentID) return;
+
                 using (new SecurityDisabler())
                 {
                     CreateRedirectItem(item, item.Database.GetItem(oldParentID));
