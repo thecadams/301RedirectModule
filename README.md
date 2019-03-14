@@ -11,6 +11,7 @@ Improvements by [Chris Adams](http://www.cadams.com.au/), [Max Slabyak](https://
 
 * Fixed a bug int he delete command that is in the notification bar.
 * Added a rule based redirect 
+* Item names with dashes could break the regular expression redirect if EncodeNames is set to true on Sitecore Link Manager, this is a minor fix, - contributed by [Mohammed Syam](https://github.com/Mohamed-Syam)
 
 **Version 1.5:**
 
