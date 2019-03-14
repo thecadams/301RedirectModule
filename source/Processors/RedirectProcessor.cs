@@ -110,12 +110,17 @@ namespace SharedSource.RedirectModule.Processors
                 // Query portion gets in the way of getting the sitecore item.
                 var pathAndQuery = redirectPath.Split('?');
                 var path = pathAndQuery[0];
-                if (LinkManager.GetDefaultUrlOptions() != null &&
-                    LinkManager.GetDefaultUrlOptions().EncodeNames)
-                {
-                    path = Sitecore.MainUtil.DecodeName(path);
-                }
                 var redirectToItem = db.GetItem(path);
+                if (redirectToItem == null)
+                {
+                    if (LinkManager.Provider != null &&
+                    LinkManager.Provider.GetDefaultUrlOptions() != null &&
+                    LinkManager.Provider.GetDefaultUrlOptions().EncodeNames)
+                    {
+                        path = Sitecore.MainUtil.DecodeName(path);
+                    }
+                    redirectToItem = db.GetItem(path);
+                }
                 if (redirectToItem != null)
                 {
                     var query = pathAndQuery.Length > 1 ? "?" + pathAndQuery[1] : "";
