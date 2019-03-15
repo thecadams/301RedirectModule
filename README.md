@@ -3,15 +3,19 @@
 
 An improved version of the Sitecore 301 redirect module. Original version was created by Chris Castle, available at [http://trac.sitecore.net/301RedirectModule](http://trac.sitecore.net/301RedirectModule)
 
-Improvements by [Chris Adams](http://www.cadams.com.au/), [Max Slabyak](https://github.com/maxslabyak), [Mark Wiseman](https://github.com/mawiseman), [Thomas Baek](https://github.com/ThomasBaek), and [timgriff84](https://github.com/timgriff84)
+Improvements by [Chris Adams](http://gtihub.com/thecadams/), [Max Slabyak](https://github.com/maxslabyak), [Mark Wiseman](https://github.com/mawiseman), [Thomas Baek](https://github.com/ThomasBaek), and [timgriff84](https://github.com/timgriff84)
 
 ## Changelog ##
+
+**Version 1.6.1:**
+
+* Item names with dashes could break the regular expression redirect if EncodeNames is set to true on Sitecore Link Manager, this is a minor fix, - contributed by [Mohammed Syam](https://github.com/Mohamed-Syam)
+* Release zip files can no longer be provided due to challenges building the package - please build your own package or contact [Chris Adams](http://gtihub.com/thecadams/) for support.
 
 **Version 1.6:**
 
 * Fixed a bug int he delete command that is in the notification bar.
-* Added a rule based redirect 
-* Item names with dashes could break the regular expression redirect if EncodeNames is set to true on Sitecore Link Manager, this is a minor fix, - contributed by [Mohammed Syam](https://github.com/Mohamed-Syam)
+* Added a rule based redirect
 
 **Version 1.5:**
 
