@@ -113,9 +113,8 @@ namespace SharedSource.RedirectModule.Processors
                 var redirectToItem = db.GetItem(path);
                 if (redirectToItem == null)
                 {
-                    if (LinkManager.Provider != null &&
-                    LinkManager.Provider.GetDefaultUrlOptions() != null &&
-                    LinkManager.Provider.GetDefaultUrlOptions().EncodeNames)
+                    if (LinkManager.GetDefaultUrlOptions() != null &&
+                        LinkManager.GetDefaultUrlOptions().EncodeNames)
                     {
                         path = Sitecore.MainUtil.DecodeName(path);
                     }
@@ -157,7 +156,7 @@ namespace SharedSource.RedirectModule.Processors
 
                 if (ruleContext.Parameters["newUrl"] != null && ruleContext.Parameters["newUrl"].ToString() != string.Empty && ruleContext.Parameters["newUrl"].ToString() != requestedUrl)
                 {
-                   var responseStatus = GetResponseStatus(possibleRedirectRule);
+                    var responseStatus = GetResponseStatus(possibleRedirectRule);
                     // The query string will be in the URL already, so don't break it apart.
                     SendResponse(ruleContext.Parameters["newUrl"].ToString(), string.Empty, responseStatus, args);
                 }
@@ -236,10 +235,10 @@ namespace SharedSource.RedirectModule.Processors
 
         private static void SendResponse(string redirectToUrl, string queryString, ResponseStatus responseStatusCode, HttpRequestArgs args)
         {
-            args.Context.Response.Status = responseStatusCode.Status;
-            args.Context.Response.StatusCode = responseStatusCode.StatusCode;
-            args.Context.Response.AddHeader("Location", redirectToUrl + queryString);
-            args.Context.Response.End();
+            args.HttpContext.Response.Status = responseStatusCode.Status;
+            args.HttpContext.Response.StatusCode = responseStatusCode.StatusCode;
+            args.HttpContext.Response.AddHeader("Location", redirectToUrl + queryString);
+            args.HttpContext.Response.End();
         }
 
         private static string GetRedirectToItemUrl(Item redirectToItem)
