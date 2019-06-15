@@ -1,4 +1,4 @@
----
+﻿---
 ID: "a08e6c2d-42c3-4404-b0d7-c7c881df8fbf"
 Parent: "b5967a68-7f70-42d3-9874-0e4d001dbc20"
 Template: "b5967a68-7f70-42d3-9874-0e4d001dbc20"
@@ -8,6 +8,10 @@ SharedFields:
 - ID: "06d5295c-ed2f-4a54-9bf2-26228d113318"
   Hint: __Icon
   Value: software/32x32/breakpoint.png
+- ID: "1172f251-dad4-4efb-a329-0c63500e4f1e"
+  Hint: __Masters
+  Type: TreelistEx
+  Value: 
 - ID: "c9283d9e-7c29-4419-9c28-5a5c8ff53e84"
   Hint: __Bucketable
   Type: Checkbox
@@ -22,4 +26,5 @@ Languages:
       Value: 20110729T170355Z
     - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
       Hint: __Created by
-      Value: sitecore\admin
+      Value: |
+        sitecore\admin

@@ -1,4 +1,4 @@
----
+﻿---
 ID: "0a0a0be7-4900-438c-a08e-3a141840d1a8"
 Parent: "dd3eeae7-44ce-48e2-95af-777b6ece9d5d"
 Template: "f0d16eee-3a05-4e43-a082-795a32b873c0"
@@ -25,7 +25,8 @@ Languages:
       Value: 20160729T133416Z
     - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
       Hint: __Created by
-      Value: sitecore\admin
+      Value: |
+        sitecore\admin
     - ID: "af321234-4eb9-4ef5-9197-65903351939c"
       Hint: Text
       Value: "hvor enhedsbrowseren [operatorid,StringOperator,,compares to] [value,,,specific value]"
@@ -42,7 +43,8 @@ Languages:
       Value: 20160729T133547Z
     - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
       Hint: __Created by
-      Value: sitecore\admin
+      Value: |
+        sitecore\admin
     - ID: "af321234-4eb9-4ef5-9197-65903351939c"
       Hint: Text
       Value: "wo der Gerätebrowser [operatorid,StringOperator,,entspricht] [value,,,specific value]"
@@ -55,7 +57,8 @@ Languages:
       Value: 20150407T123346Z
     - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
       Hint: __Created by
-      Value: sitecore\admin
+      Value: |
+        sitecore\admin
     - ID: "af321234-4eb9-4ef5-9197-65903351939c"
       Hint: Text
       Value: "where the URL [operatorid,StringOperator,,compares to] [value,,,value]"
@@ -72,7 +75,8 @@ Languages:
       Value: 20160729T133716Z
     - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
       Hint: __Created by
-      Value: sitecore\admin
+      Value: |
+        sitecore\admin
     - ID: "af321234-4eb9-4ef5-9197-65903351939c"
       Hint: Text
       Value: "条件： デバイス ブラウザが [value,,,特定の値] [operatorid,StringOperator,,と比較する] 場合"

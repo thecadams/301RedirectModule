@@ -1,4 +1,4 @@
----
+﻿---
 ID: "8431a945-bb63-43c5-98f6-f9078606684d"
 Parent: "74a18762-3ec3-4bb4-9a47-d9be8ca83046"
 Template: "74a18762-3ec3-4bb4-9a47-d9be8ca83046"
@@ -21,4 +21,5 @@ Languages:
       Value: 20150825T135036
     - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
       Hint: __Created by
-      Value: sitecore\admin
+      Value: |
+        sitecore\admin

@@ -1,9 +1,13 @@
----
+﻿---
 ID: "5d71299d-cf0a-4f1b-91f1-500dafea081a"
 Parent: "73df0e8d-17fc-4715-b2eb-fa60349c4fdf"
 Template: "aa91a868-02f2-41d3-8b78-1cad91b4dcae"
 Path: /sitecore/system/Settings/Rules/Definitions/Tags/Redirect Manager/Visibility
 DB: master
+SharedFields:
+- ID: "f6d8a61c-2f84-4401-bd24-52d2068172bc"
+  Hint: __Originator
+  Value: "{B1ECD86C-5B13-4698-A27A-CBE89DC12393}"
 Languages:
 - Language: en
   Versions:

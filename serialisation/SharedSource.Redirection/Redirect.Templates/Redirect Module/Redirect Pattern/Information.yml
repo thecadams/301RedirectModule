@@ -1,4 +1,4 @@
----
+﻿---
 ID: "5d138b67-7a3c-48ef-9788-648486b8da40"
 Parent: "94ac4f3a-e888-4557-9504-4ad2560acc12"
 Template: "e269fbb5-3750-427a-9149-7aa950b49301"
@@ -14,7 +14,8 @@ Languages:
       Value: 20110729T120221
     - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
       Hint: __Created by
-      Value: sitecore\admin
+      Value: |
+        sitecore\admin
 - Language: "fr-CA"
   Versions:
   - Version: 1
@@ -24,4 +25,5 @@ Languages:
       Value: "20150825T122019:635761020194026712"
     - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
       Hint: __Created by
-      Value: sitecore\admin
+      Value: |
+        sitecore\admin

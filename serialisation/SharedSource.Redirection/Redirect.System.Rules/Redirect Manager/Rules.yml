@@ -1,4 +1,4 @@
----
+﻿---
 ID: "a47cd992-14b9-4a6a-a41c-672348879ea6"
 Parent: "0d1713cf-51e9-4d7d-820f-87e9f39735ca"
 Template: "8ea2cf67-4250-47a2-aeca-4f70fd200dc7"
@@ -18,7 +18,8 @@ Languages:
       Value: 20160729T133414Z
     - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
       Hint: __Created by
-      Value: sitecore\admin
+      Value: |
+        sitecore\admin
 - Language: "de-DE"
   Fields:
   - ID: "b5e02ad9-d56f-4c41-a065-a133db87bdeb"
@@ -32,7 +33,8 @@ Languages:
       Value: 20160729T133544Z
     - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
       Hint: __Created by
-      Value: sitecore\admin
+      Value: |
+        sitecore\admin
 - Language: en
   Versions:
   - Version: 1
@@ -53,4 +55,5 @@ Languages:
       Value: 20160729T133714Z
     - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
       Hint: __Created by
-      Value: sitecore\admin
+      Value: |
+        sitecore\admin

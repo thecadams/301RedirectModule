@@ -1,4 +1,4 @@
----
+﻿---
 ID: "4bab8adc-cdb3-4b35-afe7-821fd0346ac0"
 Parent: "dd3eeae7-44ce-48e2-95af-777b6ece9d5d"
 Template: "f90052a5-b4e6-4e6d-9812-1e1b88a6fcea"
@@ -25,7 +25,8 @@ Languages:
       Value: 20160729T133418Z
     - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
       Hint: __Created by
-      Value: sitecore\admin
+      Value: |
+        sitecore\admin
     - ID: "eeb36a3b-40d9-4af5-862a-de257b84dca3"
       Hint: Text
       Value: "sortér resultater efter [orderOperator,OrderByOperator,,order operator] [fieldName,,,field name]"
@@ -42,7 +43,8 @@ Languages:
       Value: 20160729T133549Z
     - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
       Hint: __Created by
-      Value: sitecore\admin
+      Value: |
+        sitecore\admin
     - ID: "eeb36a3b-40d9-4af5-862a-de257b84dca3"
       Hint: Text
       Value: "Ergebnisse sortieren nach [orderOperator,OrderByOperator,,order operator] [fieldName,,,Feldname]"
@@ -55,7 +57,8 @@ Languages:
       Value: 20130910T155826
     - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
       Hint: __Created by
-      Value: sitecore\admin
+      Value: |
+        sitecore\admin
     - ID: "eeb36a3b-40d9-4af5-862a-de257b84dca3"
       Hint: Text
       Value: "replace the static [old,,,text] with the static [new,,,text] "
@@ -72,7 +75,8 @@ Languages:
       Value: 20160729T133719Z
     - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
       Hint: __Created by
-      Value: sitecore\admin
+      Value: |
+        sitecore\admin
     - ID: "eeb36a3b-40d9-4af5-862a-de257b84dca3"
       Hint: Text
       Value: "[fieldName,,,フィールド名] を [orderOperator,OrderByOperator,,並べ替えルール] で並べ替える"
