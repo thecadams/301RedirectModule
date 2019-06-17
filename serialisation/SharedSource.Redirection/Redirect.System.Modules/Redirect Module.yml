@@ -11,7 +11,7 @@ SharedFields:
 - ID: "dec8d2d5-e3cf-48b6-a653-8e69e2716641"
   Hint: __Security
   Value: |
-    ar|sitecore\Redirect Module Admin|pe|+item:write|+item:create|pd|+item:rename|+item:write|+item:read|+item:delete|+item:create|
+    ar|modules\Redirect Module Admin|pe|+item:write|+item:create|pd|+item:rename|+item:write|+item:read|+item:delete|+item:create|
 Languages:
 - Language: en
   Versions:
