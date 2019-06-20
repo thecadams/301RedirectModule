@@ -1,9 +1,14 @@
----
+﻿---
 ID: "c5de89bf-7566-4ace-bfdd-ce6929e86a95"
 Parent: "43a0928c-d38e-44a3-9e3f-d111e3b826ac"
 Template: "43a0928c-d38e-44a3-9e3f-d111e3b826ac"
 Path: /sitecore/templates/Redirect Module/Versioned Redirect Url/__Standard Values
 DB: master
+SharedFields:
+- ID: "1172f251-dad4-4efb-a329-0c63500e4f1e"
+  Hint: __Masters
+  Type: TreelistEx
+  Value: 
 Languages:
 - Language: en
   Versions:
@@ -14,4 +19,5 @@ Languages:
       Value: 20110729T120355
     - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
       Hint: __Created by
-      Value: sitecore\admin
+      Value: |
+        sitecore\admin

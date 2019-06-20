@@ -1,9 +1,13 @@
----
+﻿---
 ID: "73df0e8d-17fc-4715-b2eb-fa60349c4fdf"
 Parent: "dadb4f93-477f-491f-a905-c4005c452e67"
 Template: "1a9b6300-4652-477c-a4b5-b2a64e86b29f"
 Path: /sitecore/system/Settings/Rules/Definitions/Tags/Redirect Manager
 DB: master
+SharedFields:
+- ID: "f6d8a61c-2f84-4401-bd24-52d2068172bc"
+  Hint: __Originator
+  Value: "{0C559214-E3B6-418E-9E1C-8AF7B19FC20B}"
 Languages:
 - Language: en
   Versions:
@@ -14,4 +18,5 @@ Languages:
       Value: 20161005T221038Z
     - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
       Hint: __Created by
-      Value: sitecore\admin
+      Value: |
+        sitecore\admin

@@ -1,4 +1,4 @@
----
+﻿---
 ID: "fc0d2678-40ab-4552-a468-35ff9fc5c5fe"
 Parent: "0ce63b2f-bf33-4277-af9a-a172f943c99e"
 Template: "0ce63b2f-bf33-4277-af9a-a172f943c99e"
@@ -18,4 +18,5 @@ Languages:
       Value: 20111001T002952
     - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
       Hint: __Created by
-      Value: sitecore\admin
+      Value: |
+        sitecore\admin

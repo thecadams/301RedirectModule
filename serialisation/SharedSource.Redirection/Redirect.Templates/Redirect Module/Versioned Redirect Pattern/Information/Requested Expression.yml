@@ -1,4 +1,4 @@
----
+﻿---
 ID: "ceaface6-67fa-4436-a229-95c5426e0e6f"
 Parent: "1e1022cc-e7cb-4836-9dd5-a324dafc116d"
 Template: "455a3e98-a627-4b40-8035-e683a0331ac7"
@@ -27,8 +27,16 @@ SharedFields:
 - ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
   Hint: __Sortorder
   Value: 100
+- ID: "be351a73-fcb0-4213-93fa-c302d8ab4f51"
+  Hint: Shared
+  Type: Checkbox
+  Value: 0
 Languages:
 - Language: en
+  Fields:
+  - ID: "19a69332-a23e-4e70-8d16-b2640cb24cc8"
+    Hint: Title
+    Value: 
   Versions:
   - Version: 1
     Fields:
@@ -37,4 +45,5 @@ Languages:
       Value: 20110729T120221
     - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
       Hint: __Created by
-      Value: sitecore\admin
+      Value: |
+        sitecore\admin

@@ -1,4 +1,4 @@
----
+﻿---
 ID: "e2115d53-49c2-487a-a955-45fe7791971f"
 Parent: "dd3eeae7-44ce-48e2-95af-777b6ece9d5d"
 Template: "96c8e5dd-63c3-496b-a97c-a3e37e1dacba"
@@ -8,6 +8,9 @@ SharedFields:
 - ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
   Hint: __Sortorder
   Value: 800
+- ID: "f6d8a61c-2f84-4401-bd24-52d2068172bc"
+  Hint: __Originator
+  Value: "{FD4268C6-E588-4C19-B141-B1AAD488887D}"
 Languages:
 - Language: en
   Versions:

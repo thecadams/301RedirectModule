@@ -1,4 +1,4 @@
----
+﻿---
 ID: "5de378fe-0cab-4043-af9d-97327bbfec9f"
 Parent: "08477468-d438-43d4-9d6a-6d84a611971c"
 Template: "8bef76f0-deaa-4939-b9c1-f357e1875d5d"
@@ -8,6 +8,10 @@ SharedFields:
 - ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
   Hint: __Sortorder
   Value: 0
+- ID: "dec8d2d5-e3cf-48b6-a653-8e69e2716641"
+  Hint: __Security
+  Value: |
+    ar|modules\Redirect Module Admin|pe|+item:write|+item:create|pd|+item:rename|+item:write|+item:read|+item:delete|+item:create|
 Languages:
 - Language: en
   Versions:
@@ -25,4 +29,5 @@ Languages:
       Value: "20150825T113741:635760994619460953"
     - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
       Hint: __Created by
-      Value: sitecore\admin
+      Value: |
+        sitecore\admin

@@ -1,11 +1,17 @@
 301RedirectModule
 =================
 
-An improved version of the Sitecore 301 redirect module. Original version was created by Chris Castle, available at [http://trac.sitecore.net/301RedirectModule](http://trac.sitecore.net/301RedirectModule)
+An improved version of the Sitecore 301 redirect module. Original version was created by Chris Castle.
+Now upgraded and compatible with Sitecore 9.1 (version 1.7)
 
 Improvements by [Chris Adams](http://gtihub.com/thecadams/), [Max Slabyak](https://github.com/maxslabyak), [Mark Wiseman](https://github.com/mawiseman), [Thomas Baek](https://github.com/ThomasBaek), and [timgriff84](https://github.com/timgriff84)
 
 ## Changelog ##
+
+**Version 1.7:**
+* Upgraded for compatibility with Sitecore v9.1 [kaalen](https://github.com/kaalen)
+* Added security role modules\Redirect Module Admin. Add users to this role to allow them to configure redirects.
+* Install package re-created
 
 **Version 1.6.1:**
 
