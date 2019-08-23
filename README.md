@@ -7,6 +7,10 @@ Now upgraded and compatible with Sitecore 9.1 (version 1.7)
 Improvements by [Chris Adams](http://gtihub.com/thecadams/), [Max Slabyak](https://github.com/maxslabyak), [Mark Wiseman](https://github.com/mawiseman), [Thomas Baek](https://github.com/ThomasBaek), and [timgriff84](https://github.com/timgriff84)
 
 ## Changelog ##
+**Version 1.8:**
+* Upgraded for compatibility with Sitecore v9.2 [santosh](https://github.com/poojarsn)
+* Install package re-created
+
 
 **Version 1.7:**
 * Upgraded for compatibility with Sitecore v9.1 [kaalen](https://github.com/kaalen)
