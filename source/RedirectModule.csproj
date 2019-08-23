@@ -184,6 +184,7 @@
       <SubType>Designer</SubType>
     </Content>
     <None Include="App_Data\packages\301 Redirect Module-1.6.zip" />
+    <Content Include="App_Data\packages\301 Redirect Module-1.8.zip" />
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
   </ItemGroup>
