@@ -113,8 +113,7 @@ namespace SharedSource.RedirectModule.Processors
                 var redirectToItem = db.GetItem(path);
                 if (redirectToItem == null)
                 {
-                    if (LinkManager.GetDefaultUrlOptions() != null &&
-                        LinkManager.GetDefaultUrlOptions().EncodeNames)
+                    if (LinkManager.GetDefaultUrlBuilderOptions() != null && (bool)LinkManager.GetDefaultUrlBuilderOptions().EncodeNames)
                     {
                         path = Sitecore.MainUtil.DecodeName(path);
                     }
