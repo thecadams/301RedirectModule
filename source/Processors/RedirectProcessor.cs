@@ -1,17 +1,17 @@
-﻿using System.Web;
+﻿using SharedSource.RedirectModule.Classes;
+using SharedSource.RedirectModule.Helpers;
 using Sitecore.Data;
-using System;
 using Sitecore.Data.Items;
-using System.Text.RegularExpressions;
-using System.Linq;
-using System.Collections.Generic;
+using Sitecore.Diagnostics;
 using Sitecore.Links;
 using Sitecore.Pipelines.HttpRequest;
-using Sitecore.Diagnostics;
 using Sitecore.Resources.Media;
-using SharedSource.RedirectModule.Classes;
-using SharedSource.RedirectModule.Helpers;
 using Sitecore.Rules;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
+using System.Web;
 
 namespace SharedSource.RedirectModule.Processors
 {
@@ -167,7 +167,7 @@ namespace SharedSource.RedirectModule.Processors
             if (db == null)
                 return false;
             var redirectRoot = Sitecore.Configuration.Settings.GetSetting(Constants.Settings.RedirectRootNode);
-            var redirectFolderRoot = db.SelectSingleItem(redirectRoot);
+            var redirectFolderRoot = db.GetItem(redirectRoot);
             if (redirectFolderRoot == null)
                 return false;
             var allowRedirectsOnItemIDs = redirectFolderRoot[Constants.Fields.ItemProcessRedirects];
@@ -189,22 +189,6 @@ namespace SharedSource.RedirectModule.Processors
             var redirectRoot = Sitecore.Configuration.Settings.GetSetting(Constants.Settings.RedirectRootNode);
             switch (queryType)
             {
-                case "fast": // fast query
-                    {
-                        //process shared template items
-                        ret = db.SelectItems($"fast:{redirectRoot}//*[@@templatename='{templateName}']");
-
-                        //because fast query requires to check for active versions in the current language
-                        //run a separate query for versioned items to see if this is even necessary.
-                        //if only shared templates exist in System/Modules, this step is extraneous and unnecessary.
-                        IEnumerable<Item> versionedItems = db.SelectItems($"fast:{redirectRoot}//*[@@templatename='{versionedTemplateName}']");
-
-                        //if active versions of items in the current context exist, union the two IEnumerable lists together.
-                        ret = versionedItems.Any(i => i.Versions.Count > 0)
-                            ? ret.Union(versionedItems.Where(i => i.Versions.Count > 0))
-                            : ret;
-                        break;
-                    }
                 case "query": // Sitecore query
                     {
                         ret = db.SelectItems($"{redirectRoot}//*[@@templatename='{templateName}' or @@templatename='{versionedTemplateName}']");
@@ -212,7 +196,7 @@ namespace SharedSource.RedirectModule.Processors
                     }
                 default: // API LINQ
                     {
-                        Item redirectFolderRoot = db.SelectSingleItem(redirectRoot);
+                        Item redirectFolderRoot = db.GetItem(redirectRoot);
                         if (redirectFolderRoot != null)
                             ret = redirectFolderRoot.Axes.GetDescendants().Where(i => i.TemplateName == templateName || i.TemplateName == versionedTemplateName);
                         break;
@@ -277,4 +261,3 @@ namespace SharedSource.RedirectModule.Processors
         }
     }
 }
-
